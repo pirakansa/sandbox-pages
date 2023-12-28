@@ -6,11 +6,6 @@ import Button from '@mui/material/Button';
 import cookie from 'cookie';
 import { v4 as uuidv4 } from 'uuid';
 
-function GetImageSizeProp() {
-  const imgSizeProp = (window.innerHeight > window.innerWidth)?{width:"80%"}:{height:"80%"};
-  return imgSizeProp;
-}
-
 function DashboardContent() {
 
   const MARGIN_WIDTH_PROPERTY = {
@@ -23,8 +18,6 @@ function DashboardContent() {
 
   document.cookie = cookie.serialize('uuid', '',{maxAge : 0});
   
-  const imageSize = GetImageSizeProp();
-
   return (
     <>
       <Header ></Header>
