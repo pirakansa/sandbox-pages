@@ -4,6 +4,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import cookie from 'cookie';
+import { v4 as uuidv4 } from 'uuid';
 
 function GetImageSizeProp() {
   const imgSizeProp = (window.innerHeight > window.innerWidth)?{width:"80%"}:{height:"80%"};
@@ -36,7 +37,7 @@ function DashboardContent() {
             variant="contained"
             onClick={() => {
               document.cookie = cookie.serialize('uuid',
-                crypto.randomUUID(),
+                uuidv4(),
                 {maxAge : 60 * 5}
               );
               location.replace('/top.html');
