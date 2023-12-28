@@ -1,0 +1,6 @@
+{
+    "name": "node-development-kit",
+    "image": "node:20-alpine",
+    "remoteUser": "node"
+}
+  

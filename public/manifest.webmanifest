@@ -1,0 +1,10 @@
+{
+  "name": "Home name",
+  "short_name": "home",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/images/apple-touch-icon.png"
+    }
+  ]
+}

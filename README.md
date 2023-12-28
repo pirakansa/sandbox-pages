@@ -1,1 +1,1 @@
-# sb-pages
+# sandbox-pages
