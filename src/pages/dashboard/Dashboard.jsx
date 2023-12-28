@@ -3,6 +3,7 @@ import Header from '../../components/block/Header.jsx';
 import MenuBtn from '../../components/atoms/MenuBtn.jsx';
 import Container from '@mui/material/Container';
 import {Route, Routes, HashRouter} from 'react-router-dom';
+import Ghviewer from './Ghviewer.jsx';
 
 
 function DashboardContent() {
@@ -27,13 +28,12 @@ function DashboardContent() {
           <Routes>
             <Route path="/*" element={
               <div className={styles.hoge} >
-              {[...new Array(12)]
-                .map(
+                {[...new Array(12)].map(
                   () => `Cras mattis consectetur purus sit amet fermentum.Cras justo odio, dapibus ac facilisis in, egestas eget quam.Morbi leo risus, porta ac consectetur ac, vestibulum at eros.Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,
-                )
-                .join('\n')}
-            </div>
+                ).join('\n')}
+              </div>
             } />
+            <Route path="/ghv" element={<Ghviewer />} />
           </Routes>
         </HashRouter>
 

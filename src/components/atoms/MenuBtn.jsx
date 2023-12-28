@@ -12,7 +12,6 @@ function MenuBtnContent() {
     <>
       <IconButton
         color="inherit"
-        aria-label="open drawer"
         onClick={()=>{setOpen(true)}}
         edge="start"
       >
@@ -24,7 +23,7 @@ function MenuBtnContent() {
         open={open}
         onClose={()=>{setOpen(false)}}
       >
-        <MenuLists />
+        <MenuLists onclick={()=>{setOpen(false)}} />
       </Drawer>
     </>
   );

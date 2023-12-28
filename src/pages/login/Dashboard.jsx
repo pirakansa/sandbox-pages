@@ -31,7 +31,7 @@ function DashboardContent() {
             onClick={() => {
               document.cookie = cookie.serialize('uuid',
                 uuidv4(),
-                {maxAge : 60 * 5}
+                {maxAge : 60 * 30}
               );
               location.replace('/top.html');
             }}

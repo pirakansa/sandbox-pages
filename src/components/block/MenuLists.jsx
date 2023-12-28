@@ -3,12 +3,23 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import HomeIcon from '@mui/icons-material/Home';
+import PageviewIcon from '@mui/icons-material/Pageview';
 import LogoutIcon from '@mui/icons-material/Logout';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import Link from '@mui/material/Link';
+import PropTypes from 'prop-types';
 
-function MenuListsContent() {
+
+MenuListsContent.propTypes = {
+  onclick: PropTypes.any
+};
+MenuLists.propTypes = {
+  onclick: PropTypes.any
+};
+
+
+function MenuListsContent({ onclick }) {
 
   return (
     <>
@@ -17,8 +28,8 @@ function MenuListsContent() {
           Content Menus
         </ListSubheader>
 
-        <Link underline='none' href="#/HOME">
-          <ListItemButton>
+        <Link underline='none' href="#/home">
+          <ListItemButton onClick={onclick}>
             <ListItemIcon>
               <HomeIcon />
             </ListItemIcon>
@@ -26,10 +37,19 @@ function MenuListsContent() {
           </ListItemButton>
         </Link>
 
+        <Link underline='none' href="#/ghv">
+          <ListItemButton onClick={onclick}>
+            <ListItemIcon>
+              <PageviewIcon />
+            </ListItemIcon>
+            <ListItemText primary="Github Viwer" />
+          </ListItemButton>
+        </Link>
+
         <Divider />
 
         <Link underline='none' href="/login.html">
-          <ListItemButton>
+          <ListItemButton onClick={onclick}>
             <ListItemIcon>
               <LogoutIcon />
             </ListItemIcon>
@@ -42,6 +62,6 @@ function MenuListsContent() {
   );
 }
 
-export default function MenuLists() {
-  return <MenuListsContent />;
+export default function MenuLists({ onclick }) {
+  return <MenuListsContent onclick={onclick} />;
 }
