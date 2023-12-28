@@ -2,7 +2,8 @@ import styles from './Dashboard.module.scss';
 import Header from '../../components/block/Header.jsx';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import jpegLogo from '../../assets/logo.jpeg';
+import Button from '@mui/material/Button';
+import cookie from 'cookie';
 
 function GetImageSizeProp() {
   const imgSizeProp = (window.innerHeight > window.innerWidth)?{width:"80%"}:{height:"80%"};
@@ -19,6 +20,8 @@ function DashboardContent() {
     }
   };
 
+  document.cookie = cookie.serialize('uuid', '',{maxAge : 0});
+  
   const imageSize = GetImageSizeProp();
 
   return (
@@ -27,13 +30,20 @@ function DashboardContent() {
 
       <Container {...MARGIN_WIDTH_PROPERTY} >
         <Grid container >
-          <Grid item xs={12} md={12} className={styles.center} >
+          <Grid item className={styles.center} >
 
-            <img
-              alt="logo"
-              src={jpegLogo}
-              {...imageSize}
-            />
+          <Button
+            variant="contained"
+            onClick={() => {
+              document.cookie = cookie.serialize('uuid',
+                crypto.randomUUID(),
+                {maxAge : 60 * 5}
+              );
+              location.replace('/top.html');
+            }}
+          >
+            Dummy Login Boutton
+          </Button>
 
           </Grid>
         </Grid>
