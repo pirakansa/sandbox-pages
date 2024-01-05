@@ -1,8 +1,6 @@
 import styles from './Dashboard.module.scss';
-import Header from '../../components/block/Header.jsx';
-import MenuBtn from '../../components/atoms/MenuBtn.jsx';
 import Container from '@mui/material/Container';
-import {Route, Routes, HashRouter} from 'react-router-dom';
+import { Route, Routes, HashRouter } from 'react-router-dom';
 import Ghviewer from './Ghviewer.jsx';
 
 
@@ -18,10 +16,6 @@ function DashboardContent() {
 
   return (
     <>
-      <Header >
-        <MenuBtn></MenuBtn>
-      </Header>
-
       <Container {...MARGIN_WIDTH_PROPERTY} >
 
         <HashRouter>

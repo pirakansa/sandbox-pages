@@ -1,5 +1,4 @@
 import styles from './Dashboard.module.scss';
-import Header from '../../components/block/Header.jsx';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
@@ -20,8 +19,6 @@ function DashboardContent() {
   
   return (
     <>
-      <Header ></Header>
-
       <Container {...MARGIN_WIDTH_PROPERTY} >
         <Grid container >
           <Grid item className={styles.center} >

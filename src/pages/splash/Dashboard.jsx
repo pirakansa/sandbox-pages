@@ -1,14 +1,13 @@
 import styles from './Dashboard.module.scss';
-import Header from '../../components/block/Header.jsx';
-import useWindowSize from '../../utils/WindowSize.js';
+import { useWindowSize } from '../../utils/WindowSize.js';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import jpegLogo from '../../assets/logo.jpeg';
 
 function GetImageSizeProp(size) {
   const imgSizeProp = (size.height > size.width)
-    ?{ width: (size.width*0.7) }
-    :{ height: (size.height*0.7) };
+    ?{ width: (size.width*0.6) }
+    :{ height: (size.height*0.6) };
   return imgSizeProp;
 }
 
@@ -27,8 +26,6 @@ function DashboardContent() {
 
   return (
     <>
-      <Header ></Header>
-
       <Container {...MARGIN_WIDTH_PROPERTY} >
         <Grid container >
           <Grid item className={styles.center} >

@@ -1,8 +1,10 @@
 import theme from '../../utils/Theme.js';
 import Container from '@mui/material/Container';
-import Dashboard from "./Dashboard.jsx";
 import { ThemeProvider } from '@mui/material/styles';
 import cookie from 'cookie';
+import { Header, EnsureHeader } from '../../components/block/Header.jsx';
+import MenuBtn from '../../components/atoms/MenuBtn.jsx';
+import Dashboard from "./Dashboard.jsx";
 
 function App() {
 
@@ -21,7 +23,17 @@ function App() {
     <>
       <ThemeProvider theme={theme}>
         <Container {...FULL_WIDTH_PROPERTY} >
+
+          <Header >
+            <MenuBtn></MenuBtn>
+          </Header>
+
+          <EnsureHeader />
+
           <Dashboard />
+
+          <EnsureHeader />
+
         </Container>
       </ThemeProvider>
     </>

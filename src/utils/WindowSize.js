@@ -1,4 +1,12 @@
 import { useLayoutEffect, useState } from 'react';
+import UAParser from 'ua-parser-js';
+
+const isMobile = () => {
+
+  const ua = new UAParser();
+
+  return 'mobile' === ua.getDevice().type;
+};
 
 const useWindowSize = () => {
 
@@ -25,4 +33,4 @@ const useWindowSize = () => {
   return size;
 };
 
-export default useWindowSize;
+export { useWindowSize, isMobile };

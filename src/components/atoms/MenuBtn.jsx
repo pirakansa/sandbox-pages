@@ -3,6 +3,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Drawer from '@mui/material/Drawer';
 import MenuLists from '../block/MenuLists';
+import { isMobile } from '../../utils/WindowSize.js';
 
 function MenuBtnContent() {
 
@@ -19,7 +20,7 @@ function MenuBtnContent() {
       </IconButton>
       
       <Drawer
-        anchor='top'
+        anchor={(isMobile()) ? 'bottom' : 'top'}
         open={open}
         onClose={()=>{setOpen(false)}}
       >
