@@ -2,6 +2,7 @@ import styles from './Dashboard.module.scss';
 import Container from '@mui/material/Container';
 import { Route, Routes, HashRouter } from 'react-router-dom';
 import Ghviewer from './Ghviewer.jsx';
+import Fgraphviewer from './Fgraphviewer.jsx';
 
 
 function DashboardContent() {
@@ -28,6 +29,7 @@ function DashboardContent() {
               </div>
             } />
             <Route path="/ghv" element={<Ghviewer />} />
+            <Route path="/fgv" element={<Fgraphviewer />} />
           </Routes>
         </HashRouter>
 

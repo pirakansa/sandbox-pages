@@ -46,6 +46,15 @@ function MenuListsContent({ onclick }) {
           </ListItemButton>
         </Link>
 
+        <Link underline='none' href="#/fgv">
+          <ListItemButton onClick={onclick}>
+            <ListItemIcon>
+              <PageviewIcon />
+            </ListItemIcon>
+            <ListItemText primary="ForceGraph Viwer" />
+          </ListItemButton>
+        </Link>
+
         <Divider />
 
         <Link underline='none' href="/login.html">
