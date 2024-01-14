@@ -1,12 +1,46 @@
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
+import { VitePWA } from 'vite-plugin-pwa'
 import react from '@vitejs/plugin-react'
 
 const ROOT_DIR = resolve(__dirname, 'src');
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    VitePWA({
+      registerType: 'autoUpdate',
+      includeAssets: [
+        'favicon.ico',
+        'apple-touch-icon.png'
+      ],
+      manifest: {
+        name: "pira's sandbox",
+        short_name: "pira's",
+        description: "pira's sandbox application.",
+        start_url: "/",
+        scope: "/",
+        display: "standalone",
+        lang: "ja",
+        background_color: "#fafbf5",
+        icons: [
+          {
+            src: "/images/icon-192x192.png",
+            sizes: "192x192",
+            type: "image/png"
+          },
+          {
+            src: "/images/icon-512x512.png",
+            sizes: "512x512",
+            type: "image/png"
+          }
+        ]
+      },
+      devOptions: {
+        enabled: false,
+      }
+    })
+  ],
   root: ROOT_DIR,
   publicDir: resolve(__dirname, 'public'),
   build: {
