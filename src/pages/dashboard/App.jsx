@@ -5,6 +5,9 @@ import cookie from 'cookie';
 import { Header, EnsureHeader } from '../../components/block/Header.jsx';
 import MenuBtn from '../../components/atoms/MenuBtn.jsx';
 import Dashboard from "./Dashboard.jsx";
+import { v5 as uuidv5 } from 'uuid';
+
+const NameScope = uuidv5(window.location.hostname, uuidv5.URL);
 
 function App() {
 
@@ -14,7 +17,7 @@ function App() {
   };
 
   const cookies = cookie.parse(document.cookie);
-  if (!cookies.uuid) {
+  if (!cookies[NameScope]) {
     location.replace('/login.html');
     return (<></>);
   }

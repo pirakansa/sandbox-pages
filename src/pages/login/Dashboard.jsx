@@ -3,7 +3,9 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import cookie from 'cookie';
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4, v5 as uuidv5 } from 'uuid';
+
+const NameScope = uuidv5(window.location.hostname, uuidv5.URL);
 
 function DashboardContent() {
 
@@ -15,7 +17,7 @@ function DashboardContent() {
     }
   };
 
-  document.cookie = cookie.serialize('uuid', '',{maxAge : 0});
+  document.cookie = cookie.serialize(NameScope, '',{maxAge : 0});
   
   return (
     <>
@@ -26,7 +28,7 @@ function DashboardContent() {
           <Button
             variant="contained"
             onClick={() => {
-              document.cookie = cookie.serialize('uuid',
+              document.cookie = cookie.serialize(NameScope,
                 uuidv4(),
                 {maxAge : 60 * 30}
               );
