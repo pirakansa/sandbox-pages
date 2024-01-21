@@ -11,8 +11,9 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: [
-        'favicon.ico',
-        'apple-touch-icon.png'
+        '/images/favicon.png',
+        '/images/apple-touch-icon.png',
+        '/assets/logo-*.jpeg'
       ],
       manifest: {
         name: "pira's sandbox",
