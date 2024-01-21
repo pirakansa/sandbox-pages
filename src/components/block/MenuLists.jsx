@@ -4,6 +4,8 @@ import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import HomeIcon from '@mui/icons-material/Home';
 import PageviewIcon from '@mui/icons-material/Pageview';
+import GrainIcon from '@mui/icons-material/Grain';
+import QrCodeIcon from '@mui/icons-material/QrCode';
 import LogoutIcon from '@mui/icons-material/Logout';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
@@ -49,7 +51,7 @@ function MenuListsContent({ onclick }) {
         <Link underline='none' href="#/fgv">
           <ListItemButton onClick={onclick}>
             <ListItemIcon>
-              <PageviewIcon />
+              <GrainIcon />
             </ListItemIcon>
             <ListItemText primary="ForceGraph Viwer" />
           </ListItemButton>
@@ -58,7 +60,7 @@ function MenuListsContent({ onclick }) {
         <Link underline='none' href="#/camv">
           <ListItemButton onClick={onclick}>
             <ListItemIcon>
-              <PageviewIcon />
+              <QrCodeIcon />
             </ListItemIcon>
             <ListItemText primary="Camera Viwer" />
           </ListItemButton>
