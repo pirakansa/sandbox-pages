@@ -55,6 +55,15 @@ function MenuListsContent({ onclick }) {
           </ListItemButton>
         </Link>
 
+        <Link underline='none' href="#/camv">
+          <ListItemButton onClick={onclick}>
+            <ListItemIcon>
+              <PageviewIcon />
+            </ListItemIcon>
+            <ListItemText primary="Camera Viwer" />
+          </ListItemButton>
+        </Link>
+
         <Divider />
 
         <Link underline='none' href="/login.html">
