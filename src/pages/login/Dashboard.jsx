@@ -32,7 +32,9 @@ function DashboardContent() {
                 uuidv4(),
                 {maxAge : 60 * 30}
               );
-              location.replace('/top.html');
+              setTimeout(()=>{
+                location.replace('/top.html');
+              }, 300)
             }}
           >
             Dummy Login Boutton

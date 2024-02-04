@@ -4,12 +4,14 @@ import { useEffect, useState, useRef } from 'react';
 import jsQR from 'jsqr';
 import Dialog from '@mui/material/Dialog';
 import AbsButtomBtn from '../../components/atoms/AbsButtomBtn';
+import UpperInfo from '../../components/block/UpperInfo';
 
 
 function CameraviewerContent() {
 
   const [isPlay, setIsPlay] = useState(false);
   const [timeoutId, setTimeoutId] = useState(null);
+  const [scannedData, setScannedData] = useState(null);
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
 
@@ -28,11 +30,19 @@ function CameraviewerContent() {
         const imageData = ctx.getImageData(0, 0, video.clientWidth, video.clientHeight)
         const code = jsQR(imageData.data, video.clientWidth, video.clientHeight)
         if (code) {
-          console.log(code.data)
+          setScannedData(code.data);
         }
       }, 500)
       setTimeoutId(timeoutId);
     }
+  }
+
+  const showScannedInfo = () => {
+    if (scannedData == null) return;
+
+    return(
+      <UpperInfo >{scannedData}</UpperInfo>
+    );
   }
 
   useEffect(() => {
@@ -45,7 +55,7 @@ function CameraviewerContent() {
     navigator.mediaDevices.getUserMedia({
       video: {
         facingMode : {
-          exact : 'environment' // リアカメラを指定
+          exact : 'environment'
         }
       },
       audio: false
@@ -79,11 +89,12 @@ function CameraviewerContent() {
           });
           video.srcObject = null;
           clearTimeout(timeoutId)
-          // window.history.back()
-          setTimeout(()=>{window.history.back()}, 1000)
-          
+          setTimeout(()=>{
+            window.history.back()
+          }, 300)
         }}
       />
+      {showScannedInfo()}
     </>
   );
 }
