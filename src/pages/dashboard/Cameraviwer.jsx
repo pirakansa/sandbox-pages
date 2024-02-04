@@ -13,6 +13,28 @@ function CameraviewerContent() {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
 
+  const hSuccess = (stream) => {
+    const video = videoRef.current;
+    video.srcObject = stream;
+    video.onloadedmetadata = function(e) {
+      video.play();
+      let timeoutId = setInterval(() => {
+        const video = videoRef.current;
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext('2d');
+        canvas.width = video.clientWidth;
+        canvas.height = video.clientHeight;
+        ctx.drawImage(video, 0, 0, video.clientWidth, video.clientHeight);
+        const imageData = ctx.getImageData(0, 0, video.clientWidth, video.clientHeight)
+        const code = jsQR(imageData.data, video.clientWidth, video.clientHeight)
+        if (code) {
+          console.log(code.data)
+        }
+      }, 500)
+      setTimeoutId(timeoutId);
+    }
+  }
+
   useEffect(() => {
     if ( !videoRef.current ) return;
     const video = videoRef.current;
@@ -21,32 +43,19 @@ function CameraviewerContent() {
     });
 
     navigator.mediaDevices.getUserMedia({
-      video: true,
+      video: {
+        facingMode : {
+          exact : 'environment' // リアカメラを指定
+        }
+      },
       audio: false
-    }).then(function(stream) {
-      video.srcObject = stream;
-      video.onloadedmetadata = function(e) {
-        video.play();
-        let timeoutId = setInterval(() => {
-          const video = videoRef.current;
-          const canvas = canvasRef.current;
-          const ctx = canvas.getContext('2d');
-          canvas.width = video.clientWidth;
-          canvas.height = video.clientHeight;
-          ctx.drawImage(video, 0, 0, video.clientWidth, video.clientHeight);
-          const imageData = ctx.getImageData(0, 0, video.clientWidth, video.clientHeight)
-          const code = jsQR(imageData.data, video.clientWidth, video.clientHeight)
-          if (code) {
-            console.log(code.data)
-          }
-        }, 500)
-        setTimeoutId(timeoutId);
-  //   // return () => {
-  //   //   clearTimeout(timeoutId)
-  //   // }
-      }
-    }).catch(function(err) {
-      console.log(err)
+    }).then(hSuccess).catch(() => {
+      navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: false
+      }).then(hSuccess).catch(function(err) {
+        console.log(err)
+      })
     })
   }, [])
 
