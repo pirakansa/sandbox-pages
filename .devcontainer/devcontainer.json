@@ -1,6 +1,15 @@
 {
-    "name": "node-development-kit",
-    "image": "node:20-alpine",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "editor.renderWhitespace": "boundary",
+                "editor.accessibilitySupport": "off",
+                "diffEditor.ignoreTrimWhitespace": false
+            }
+        }
+    },
     "remoteUser": "node"
 }
-  

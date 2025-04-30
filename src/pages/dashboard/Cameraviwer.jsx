@@ -18,7 +18,7 @@ function CameraviewerContent() {
   const hSuccess = (stream) => {
     const video = videoRef.current;
     video.srcObject = stream;
-    video.onloadedmetadata = function(e) {
+    video.onloadedmetadata = function(_e) {
       video.play();
       let timeoutId = setInterval(() => {
         const video = videoRef.current;
@@ -48,7 +48,7 @@ function CameraviewerContent() {
   useEffect(() => {
     if ( !videoRef.current ) return;
     const video = videoRef.current;
-    video.addEventListener("playing", (event) => {
+    video.addEventListener("playing", (_ev) => {
       setIsPlay(true);
     });
 
