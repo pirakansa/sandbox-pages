@@ -37,7 +37,7 @@ function DashboardContent() {
               }, 300)
             }}
           >
-            Dummy Login Boutton
+            Dummy Login Button
           </Button>
 
           </Grid>
