@@ -1,5 +1,5 @@
 import { useLayoutEffect, useState } from 'react';
-import UAParser from 'ua-parser-js';
+import {UAParser} from 'ua-parser-js';
 
 const isMobile = () => {
 
