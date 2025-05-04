@@ -2,7 +2,7 @@ import styles from './Dashboard.module.scss';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import cookie from 'cookie';
+import * as cookie from 'cookie';
 import { v4 as uuidv4, v5 as uuidv5 } from 'uuid';
 
 const NameScope = uuidv5(window.location.hostname, uuidv5.URL);
@@ -37,7 +37,7 @@ function DashboardContent() {
               }, 300)
             }}
           >
-            Dummy Login Boutton
+            Dummy Login Button
           </Button>
 
           </Grid>

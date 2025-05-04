@@ -3,7 +3,7 @@ import Container from '@mui/material/Container';
 import { Route, Routes, HashRouter } from 'react-router-dom';
 import Ghviewer from './Ghviewer.jsx';
 import Fgraphviewer from './Fgraphviewer.jsx';
-import Cameraviewer from './Cameraviwer.jsx'
+import Cameraviewer from './Cameraviewer.jsx'
 
 
 function DashboardContent() {
