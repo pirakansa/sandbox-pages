@@ -1,7 +1,7 @@
 import theme from '../../utils/Theme.js';
 import Container from '@mui/material/Container';
 import { ThemeProvider } from '@mui/material/styles';
-import cookie from 'cookie';
+import * as cookie from 'cookie';
 import { Header, EnsureHeader } from '../../components/block/Header.jsx';
 import MenuBtn from '../../components/atoms/MenuBtn.jsx';
 import Dashboard from "./Dashboard.jsx";
