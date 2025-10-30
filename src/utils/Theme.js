@@ -1,3 +1,4 @@
+// Shared MUI theme definition applied across every page.
 import './Global.scss'
 import { createTheme } from '@mui/material/styles';
 

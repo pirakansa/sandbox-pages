@@ -1,3 +1,4 @@
+// Simple login page that issues a session cookie on behalf of the user.
 import styles from './Dashboard.module.scss';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -7,6 +8,7 @@ import { v4 as uuidv4, v5 as uuidv5 } from 'uuid';
 
 const NameScope = uuidv5(window.location.hostname, uuidv5.URL);
 
+// Render the login button and register session cookies when invoked.
 function DashboardContent() {
 
   const MARGIN_WIDTH_PROPERTY = {

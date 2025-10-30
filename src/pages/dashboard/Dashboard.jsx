@@ -1,3 +1,4 @@
+// Routing hub for dashboard sub-pages and placeholder content.
 import styles from './Dashboard.module.scss';
 import Container from '@mui/material/Container';
 import { Route, Routes, HashRouter } from 'react-router-dom';
@@ -6,6 +7,7 @@ import Fgraphviewer from './Fgraphviewer.jsx';
 import Cameraviewer from './Cameraviewer.jsx'
 
 
+// Provide the layout container and wire hash routes to sub components.
 function DashboardContent() {
 
   const MARGIN_WIDTH_PROPERTY = {
@@ -40,6 +42,7 @@ function DashboardContent() {
   );
 }
 
+// Simplify usage by exporting the memoized content function.
 export default function Dashboard() {
   return <DashboardContent />;
 }

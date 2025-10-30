@@ -1,3 +1,4 @@
+// Application header that adapts placement between desktop and mobile.
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -11,6 +12,7 @@ Header.propTypes = {
   children: PropTypes.any
 };
 
+// Render the responsive AppBar container and host nested controls.
 function HeaderContent({ children }) {
 
   return (
@@ -31,6 +33,7 @@ function HeaderContent({ children }) {
   );
 }
 
+// Spacer element ensuring content sits below the AppBar height.
 function EnsureHeader() {
   return (
     <>
@@ -40,6 +43,7 @@ function EnsureHeader() {
     );
 }
 
+// Exported header component that forwards children to the content shell.
 function Header({ children }) {
   return (
     <HeaderContent>

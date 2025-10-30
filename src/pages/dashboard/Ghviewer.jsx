@@ -1,3 +1,4 @@
+// GitHub user search view embedded in the dashboard router.
 import styles from './Dashboard.module.scss';
 import { useState } from 'react';
 import OctkitManager from "../../utils/OctkitManager";
@@ -13,6 +14,7 @@ const theme = createTheme({
   },
 });
 
+// Fetch GitHub users and present search results within a light theme.
 function GhviewerContent() {
 
   const [users, setUsers] = useState([]);

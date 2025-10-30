@@ -1,3 +1,4 @@
+// Render a list of GitHub users with avatars and profile links.
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -14,6 +15,7 @@ UserLists.propTypes = {
 };
 
 
+// Map user records to a Material UI list presentation.
 function UserListsContent({ users }) {
 
   const generate = users.map((value, idx) => {
@@ -43,6 +45,7 @@ function UserListsContent({ users }) {
   );
 }
 
+// Public wrapper ensuring prop-types validation flows through.
 export default function UserLists({ users }) {
   return <UserListsContent users={users} />;
 }

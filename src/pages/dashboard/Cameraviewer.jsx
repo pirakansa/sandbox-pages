@@ -1,3 +1,4 @@
+// Camera-based QR code scanner displayed within a modal dialog.
 import styles from './Dashboard.module.scss';
 import { useEffect, useState, useRef } from 'react';
 
@@ -7,6 +8,7 @@ import AbsButtomBtn from '../../components/atoms/AbsButtomBtn';
 import UpperInfo from '../../components/block/UpperInfo';
 
 
+// Handle camera streaming, QR scanning, and teardown logic.
 function CameraviewerContent() {
 
   const [isPlay, setIsPlay] = useState(false);
@@ -37,6 +39,7 @@ function CameraviewerContent() {
     }
   }
 
+  // Render the latest scanned QR payload when available.
   const showScannedInfo = () => {
     if (scannedData == null) return;
 
@@ -99,6 +102,7 @@ function CameraviewerContent() {
   );
 }
 
+// Wrap the content in a full-screen dialog for immersive scanning.
 export default function Cameraviewer() {
   return (
     <Dialog

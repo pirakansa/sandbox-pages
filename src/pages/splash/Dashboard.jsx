@@ -1,9 +1,11 @@
+// Splash screen layout that centers the logo and adapts image size.
 import styles from './Dashboard.module.scss';
 import { useWindowSize } from '../../utils/WindowSize.js';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import jpegLogo from '../../assets/logo.jpeg';
 
+// Calculate responsive dimensions for the splash image element.
 function GetImageSizeProp(size) {
   const imgSizeProp = (size.height > size.width)
     ?{ width: (size.width*0.6) }
@@ -11,6 +13,7 @@ function GetImageSizeProp(size) {
   return imgSizeProp;
 }
 
+// Render the centered splash view with a link to the main dashboard.
 function DashboardContent() {
 
   const MARGIN_WIDTH_PROPERTY = {

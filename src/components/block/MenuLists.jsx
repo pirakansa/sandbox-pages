@@ -1,3 +1,4 @@
+// Navigation menu components rendered in the side drawer.
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
@@ -21,6 +22,7 @@ MenuLists.propTypes = {
 };
 
 
+// Build the grouped navigation list items shown inside the drawer.
 function MenuListsContent({ onclick }) {
 
   return (
@@ -82,6 +84,7 @@ function MenuListsContent({ onclick }) {
   );
 }
 
+// Public wrapper component exposing the menu list with click handler.
 export default function MenuLists({ onclick }) {
   return <MenuListsContent onclick={onclick} />;
 }
