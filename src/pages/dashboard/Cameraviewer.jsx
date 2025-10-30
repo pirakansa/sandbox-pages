@@ -12,17 +12,19 @@ import UpperInfo from '../../components/block/UpperInfo';
 function CameraviewerContent() {
 
   const [isPlay, setIsPlay] = useState(false);
-  const [timeoutId, setTimeoutId] = useState(null);
+  const timeoutRef = useRef(null);
   const [scannedData, setScannedData] = useState(null);
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
+  const streamRef = useRef(null);
 
   const hSuccess = (stream) => {
     const video = videoRef.current;
     video.srcObject = stream;
+    streamRef.current = stream;
     video.onloadedmetadata = function(_e) {
       video.play();
-      let timeoutId = setInterval(() => {
+      const intervalId = setInterval(() => {
         const video = videoRef.current;
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
@@ -35,7 +37,7 @@ function CameraviewerContent() {
           setScannedData(code.data);
         }
       }, 500)
-      setTimeoutId(timeoutId);
+      timeoutRef.current = intervalId;
     }
   }
 
@@ -51,9 +53,10 @@ function CameraviewerContent() {
   useEffect(() => {
     if ( !videoRef.current ) return;
     const video = videoRef.current;
-    video.addEventListener("playing", (_ev) => {
+    const handlePlaying = (_ev) => {
       setIsPlay(true);
-    });
+    };
+    video.addEventListener("playing", handlePlaying);
 
     navigator.mediaDevices.getUserMedia({
       video: {
@@ -70,6 +73,23 @@ function CameraviewerContent() {
         console.log(err)
       })
     })
+
+    return () => {
+      video.removeEventListener("playing", handlePlaying);
+      if (timeoutRef.current) {
+        clearInterval(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+      const currentVideo = videoRef.current;
+      if (currentVideo && currentVideo.srcObject) {
+        currentVideo.srcObject.getTracks().forEach((track) => track.stop());
+        currentVideo.srcObject = null;
+      }
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach((track) => track.stop());
+        streamRef.current = null;
+      }
+    };
   }, [])
 
   return (
@@ -83,15 +103,25 @@ function CameraviewerContent() {
 
       <AbsButtomBtn
         onclick={()=>{
-          if ( !videoRef.current && isPlay) return;
+          if (!videoRef.current || !isPlay) return;
 
           const video = videoRef.current;
-          const tracks = video.srcObject.getTracks();
-          tracks.forEach(function (track) {
-            track.stop();
-          });
-          video.srcObject = null;
-          clearTimeout(timeoutId)
+          if (video.srcObject) {
+            const tracks = video.srcObject.getTracks();
+            tracks.forEach(function (track) {
+              track.stop();
+            });
+            video.srcObject = null;
+          }
+          if (timeoutRef.current) {
+            clearInterval(timeoutRef.current);
+            timeoutRef.current = null;
+          }
+          if (streamRef.current) {
+            streamRef.current.getTracks().forEach((track) => track.stop());
+            streamRef.current = null;
+          }
+          setIsPlay(false);
           setTimeout(()=>{
             window.history.back()
           }, 300)
