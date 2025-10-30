@@ -143,7 +143,4 @@ dist
 *.sln
 *.sw?
 
-/.gemini/styleguide.md
-/.vscode/settings.json
-/.github/copilot-instructions.md
 /.env*
