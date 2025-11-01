@@ -1,3 +1,4 @@
+// Search text input with submit button used across dashboard views.
 import PropTypes from 'prop-types';
 import { useRef } from 'react';
 import Paper from '@mui/material/Paper';
@@ -15,6 +16,7 @@ SearchText.propTypes = {
 };
 
 
+// Render the controlled search form and forward submissions.
 function SearchTextContent({ onsubmit, placeholder }) {
 
   const ref = useRef();
@@ -51,6 +53,7 @@ function SearchTextContent({ onsubmit, placeholder }) {
   );
 }
 
+// Wrapper atom that wires validation and props through to the actual form.
 export default function SearchText({ onsubmit, placeholder }) {
   return <SearchTextContent onsubmit={onsubmit} placeholder={placeholder} />;
 }

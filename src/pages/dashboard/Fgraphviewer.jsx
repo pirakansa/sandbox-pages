@@ -1,7 +1,9 @@
+// Force-directed graph demo displayed inside the dashboard.
 import { useRef, useLayoutEffect, useState } from "react";
 import { useWindowSize } from '../../utils/WindowSize.js';
 import ForceGraph2D from 'react-force-graph-2d';
 
+// Initialize canvas size tracking and render the sample graph dataset.
 function FgraphviewerContent() {
 
   const ref = useRef(null);

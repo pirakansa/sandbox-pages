@@ -1,3 +1,4 @@
+// Prominent absolute-positioned button used for camera controls.
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import DoDisturbOnIcon from '@mui/icons-material/DoDisturbOn';
@@ -8,6 +9,7 @@ AbsButtomBtn.propTypes = {
   onclick: PropTypes.any
 };
 
+// Render the floating button and propagate click events to parents.
 export default function AbsButtomBtn({onclick}) {
   return (
     <Box

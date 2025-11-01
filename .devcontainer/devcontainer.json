@@ -2,14 +2,10 @@
     "build": {
         "dockerfile": "Dockerfile"
     },
-    "customizations": {
-        "vscode": {
-            "settings": {
-                "editor.renderWhitespace": "boundary",
-                "editor.accessibilitySupport": "off",
-                "diffEditor.ignoreTrimWhitespace": false
-            }
-        }
-    },
+    "mounts": [
+        "source=${localEnv:HOME}/.codex,target=/home/node/.codex,type=bind,consistency=cached"
+    ],
+    "workspaceMount": "source=${localWorkspaceFolder},target=/work/${localWorkspaceFolderBasename},type=bind,consistency=cached",
+    "workspaceFolder": "/work/${localWorkspaceFolderBasename}",
     "remoteUser": "node"
 }
