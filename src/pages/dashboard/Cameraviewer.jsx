@@ -6,6 +6,7 @@ import jsQR from 'jsqr';
 import Dialog from '@mui/material/Dialog';
 import AbsButtomBtn from '../../components/atoms/AbsButtomBtn';
 import UpperInfo from '../../components/block/UpperInfo';
+import Button from '@mui/material/Button';
 
 
 // Handle camera streaming, QR scanning, and teardown logic.
@@ -14,9 +15,11 @@ function CameraviewerContent() {
   const [isPlay, setIsPlay] = useState(false);
   const timeoutRef = useRef(null);
   const [scannedData, setScannedData] = useState(null);
+  const [copyMessage, setCopyMessage] = useState(null);
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const streamRef = useRef(null);
+  const copyResetTimeoutRef = useRef(null);
 
   const hSuccess = (stream) => {
     const video = videoRef.current;
@@ -42,11 +45,59 @@ function CameraviewerContent() {
   }
 
   // Render the latest scanned QR payload when available.
+  const handleCopyScannedData = async () => {
+    if (!scannedData) return;
+
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(scannedData);
+      } else {
+        const textArea = document.createElement('textarea');
+        textArea.value = scannedData;
+        textArea.setAttribute('readonly', '');
+        textArea.style.position = 'absolute';
+        textArea.style.left = '-9999px';
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+      }
+      setCopyMessage('Copied to clipboard');
+    } catch (err) {
+      console.error('Failed to copy QR code value', err);
+      setCopyMessage('Copy failed');
+    }
+
+    if (copyResetTimeoutRef.current) {
+      clearTimeout(copyResetTimeoutRef.current);
+    }
+
+    copyResetTimeoutRef.current = setTimeout(() => {
+      setCopyMessage(null);
+      copyResetTimeoutRef.current = null;
+    }, 2000);
+  };
+
   const showScannedInfo = () => {
     if (scannedData == null) return;
 
     return(
-      <UpperInfo >{scannedData}</UpperInfo>
+      <UpperInfo>
+        <div className={styles.scannedInfo}>
+          <span className={styles.scannedText}>{scannedData}</span>
+          <Button
+            size="small"
+            variant="contained"
+            color="primary"
+            onClick={handleCopyScannedData}
+          >
+            Copy
+          </Button>
+        </div>
+        {copyMessage && (
+          <div className={styles.copyMessage}>{copyMessage}</div>
+        )}
+      </UpperInfo>
     );
   }
 
@@ -80,7 +131,7 @@ function CameraviewerContent() {
         clearInterval(timeoutRef.current);
         timeoutRef.current = null;
       }
-      const currentVideo = videoRef.current;
+      const currentVideo = video;
       if (currentVideo && currentVideo.srcObject) {
         currentVideo.srcObject.getTracks().forEach((track) => track.stop());
         currentVideo.srcObject = null;
@@ -89,8 +140,20 @@ function CameraviewerContent() {
         streamRef.current.getTracks().forEach((track) => track.stop());
         streamRef.current = null;
       }
+      if (copyResetTimeoutRef.current) {
+        clearTimeout(copyResetTimeoutRef.current);
+        copyResetTimeoutRef.current = null;
+      }
     };
   }, [])
+
+  useEffect(() => {
+    if (!scannedData && copyResetTimeoutRef.current) {
+      clearTimeout(copyResetTimeoutRef.current);
+      copyResetTimeoutRef.current = null;
+    }
+    setCopyMessage(null);
+  }, [scannedData]);
 
   return (
     <>
