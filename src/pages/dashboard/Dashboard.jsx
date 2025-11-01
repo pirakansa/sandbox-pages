@@ -5,6 +5,7 @@ import { Route, Routes, HashRouter } from 'react-router-dom';
 import Ghviewer from './Ghviewer.jsx';
 import Fgraphviewer from './Fgraphviewer.jsx';
 import Cameraviewer from './Cameraviewer.jsx'
+import Version from './Version.jsx'
 
 
 // Provide the layout container and wire hash routes to sub components.
@@ -34,6 +35,7 @@ function DashboardContent() {
             <Route path="/ghv" element={<Ghviewer />} />
             <Route path="/fgv" element={<Fgraphviewer />} />
             <Route path="/camv" element={<Cameraviewer />} />
+            <Route path="/version" element={<Version />} />
           </Routes>
         </HashRouter>
 
