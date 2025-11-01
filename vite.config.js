@@ -55,4 +55,18 @@ export default defineConfig({
       },
     },
   },
+  test: {
+    environment: 'jsdom',
+    setupFiles: resolve(__dirname, 'src/setupTests.js'),
+    globals: true,
+    css: true,
+    pool: 'threads',
+    minWorkers: 1,
+    maxWorkers: 1,
+    poolOptions: {
+      threads: {
+        singleThread: true,
+      },
+    },
+  },
 })

@@ -15,6 +15,7 @@ This document is the **README for AI coding agents**. It complements the human-f
 ## 2. Build & Run
 
 * Build: `npm run build`
+* Lint: `npm run lint`
 * Test: `npm run test`
 * Run during development: `npm run dev`
 * Cleanup: remove build artifacts (such as `./dist/`) with `rm -rf ./dist/` (equivalent to `npm run clean`).
@@ -98,9 +99,11 @@ We follow the project layout.
 
 GitHub Actions (`.github/workflows/static.yml`) runs the following:
 
-* `npm build`
+* `npm run lint`
+* `npm run test`
+* `npm run build`
 
-Confirm `make test` / `make build` succeed locally before opening a PR. If they fail, format and validate locally, then rerun.
+Confirm `npm run lint` / `npm run test` / `npm run build` succeed locally before opening a PR. If they fail, format and validate locally, then rerun.
 
 ---
 
