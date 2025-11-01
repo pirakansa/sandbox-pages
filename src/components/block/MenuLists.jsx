@@ -7,6 +7,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import PageviewIcon from '@mui/icons-material/Pageview';
 import GrainIcon from '@mui/icons-material/Grain';
 import QrCodeIcon from '@mui/icons-material/QrCode';
+import InfoIcon from '@mui/icons-material/Info';
 import LogoutIcon from '@mui/icons-material/Logout';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
@@ -47,6 +48,15 @@ function MenuListsContent({ onclick }) {
               <PageviewIcon />
             </ListItemIcon>
             <ListItemText primary="Github Viwer" />
+          </ListItemButton>
+        </Link>
+
+        <Link underline='none' href="#/version">
+          <ListItemButton onClick={onclick}>
+            <ListItemIcon>
+              <InfoIcon />
+            </ListItemIcon>
+            <ListItemText primary="Version" />
           </ListItemButton>
         </Link>
 

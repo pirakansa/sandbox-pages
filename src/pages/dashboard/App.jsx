@@ -29,8 +29,8 @@ function App() {
       <ThemeProvider theme={theme}>
         <Container {...FULL_WIDTH_PROPERTY} >
 
-          <Header >
-            <MenuBtn></MenuBtn>
+          <Header>
+            <MenuBtn />
           </Header>
 
           <EnsureHeader />

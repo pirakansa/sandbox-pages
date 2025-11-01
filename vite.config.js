@@ -42,6 +42,10 @@ export default defineConfig({
       }
     })
   ],
+  define: {
+    'import.meta.env.VITE_APP_VERSION': JSON.stringify(process.env.npm_package_version || 'dev'),
+    __APP_VERSION__: JSON.stringify(process.env.npm_package_version || 'dev'),
+  },
   root: ROOT_DIR,
   publicDir: resolve(__dirname, 'public'),
   build: {
