@@ -4,8 +4,9 @@ import Container from '@mui/material/Container';
 import { Route, Routes, HashRouter } from 'react-router-dom';
 import Ghviewer from './Ghviewer.jsx';
 import Fgraphviewer from './Fgraphviewer.jsx';
-import Cameraviewer from './Cameraviewer.jsx'
-import Version from './Version.jsx'
+import Cameraviewer from './Cameraviewer.jsx';
+import Version from './Version.jsx';
+import WasmPlayground from './WasmPlayground.jsx';
 
 
 // Provide the layout container and wire hash routes to sub components.
@@ -36,6 +37,7 @@ function DashboardContent() {
             <Route path="/fgv" element={<Fgraphviewer />} />
             <Route path="/camv" element={<Cameraviewer />} />
             <Route path="/version" element={<Version />} />
+            <Route path="/wasm" element={<WasmPlayground />} />
           </Routes>
         </HashRouter>
 

@@ -9,6 +9,7 @@ import GrainIcon from '@mui/icons-material/Grain';
 import QrCodeIcon from '@mui/icons-material/QrCode';
 import InfoIcon from '@mui/icons-material/Info';
 import LogoutIcon from '@mui/icons-material/Logout';
+import ScienceIcon from '@mui/icons-material/Science';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import Link from '@mui/material/Link';
@@ -75,6 +76,15 @@ function MenuListsContent({ onclick }) {
               <QrCodeIcon />
             </ListItemIcon>
             <ListItemText primary="Camera Viwer" />
+          </ListItemButton>
+        </Link>
+
+        <Link underline='none' href="#/wasm">
+          <ListItemButton onClick={onclick}>
+            <ListItemIcon>
+              <ScienceIcon />
+            </ListItemIcon>
+            <ListItemText primary="WASM Lab" />
           </ListItemButton>
         </Link>
 
