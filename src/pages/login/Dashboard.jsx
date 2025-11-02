@@ -1,79 +1,29 @@
 // Simple login page that issues a session cookie on behalf of the user.
-import { useCallback, useEffect, useRef, useState } from 'react';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import { onAuthStateChanged, signInAnonymously } from 'firebase/auth';
-import { auth } from '../../services/firebaseClient.js';
-import {
-  createSessionCookie,
-  removeSessionCookie
-} from '../../services/session.js';
 import styles from './Dashboard.module.scss';
 import ThemeModeToggle from '../../components/atoms/ThemeModeToggle.jsx';
+import { useLoginController } from './useLoginController.js';
 
 // Render the login button and register session cookies when invoked.
 function DashboardContent() {
-  const [currentUser, setCurrentUser] = useState(null);
-  const [error, setError] = useState(null);
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [authReady, setAuthReady] = useState(false);
-  const redirectHandledRef = useRef(false);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(
-      auth,
-      (user) => {
-        setCurrentUser(user);
-        setAuthReady(true);
-        setError(null);
-        setIsProcessing(false);
-
-        if (user) {
-          createSessionCookie(user.uid);
-
-          if (!redirectHandledRef.current && process.env.NODE_ENV !== 'test') {
-            redirectHandledRef.current = true;
-            setTimeout(() => {
-              if (typeof window !== 'undefined' && window.location?.replace) {
-                window.location.replace('/top.html');
-              }
-            }, 300);
-          }
-        } else {
-          removeSessionCookie();
-          redirectHandledRef.current = false;
-        }
-      },
-      (observerError) => {
-        console.error('Failed to observe auth state', observerError);
-        setAuthReady(true);
-        setError(observerError);
-        setIsProcessing(false);
-      }
-    );
-
-    return () => {
-      if (typeof unsubscribe === 'function') {
-        unsubscribe();
-      }
-    };
-  }, []);
-
-  const handleLogin = useCallback(async () => {
-    setError(null);
-    setIsProcessing(true);
-    try {
-      await signInAnonymously(auth);
-    } catch (loginError) {
-      console.error('匿名ログインに失敗しました', loginError);
-      setError(loginError);
-      setIsProcessing(false);
-    }
-  }, []);
+  const {
+    authReady,
+    currentUser,
+    email,
+    setEmail,
+    infoMessage,
+    error,
+    isProcessing,
+    linkPending,
+    handleEmailLogin,
+    handleGuestLogin
+  } = useLoginController();
 
   const MARGIN_WIDTH_PROPERTY = {
     maxWidth: 'xl',
@@ -102,15 +52,44 @@ function DashboardContent() {
               {!authReady && (
                 <Typography>ログイン状態を確認しています…</Typography>
               )}
+              {infoMessage && (
+                <Typography color="primary">{infoMessage}</Typography>
+              )}
 
               {authReady && !currentUser && (
-                <Button
-                  variant="contained"
-                  onClick={handleLogin}
-                  disabled={isProcessing}
+                <Box
+                  component="form"
+                  onSubmit={handleEmailLogin}
+                  sx={{ width: 'min(320px, 90vw)' }}
+                  noValidate
                 >
-                  ゲストパスで入室
-                </Button>
+                  <Stack spacing={2}>
+                    <TextField
+                      label="メールアドレス"
+                      type="email"
+                      value={email}
+                      onChange={(event) => setEmail(event.target.value)}
+                      autoComplete="email"
+                      fullWidth
+                      disabled={isProcessing && !linkPending}
+                      required
+                    />
+                    <Button
+                      variant="contained"
+                      type="submit"
+                      disabled={isProcessing}
+                    >
+                      {linkPending ? 'ログインを完了' : 'ログインリンクを送信'}
+                    </Button>
+                    <Button
+                      variant="text"
+                      onClick={handleGuestLogin}
+                      disabled={isProcessing}
+                    >
+                      ゲストパスで入室
+                    </Button>
+                  </Stack>
+                </Box>
               )}
 
               {authReady && currentUser && (
