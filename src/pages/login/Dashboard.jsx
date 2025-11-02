@@ -32,7 +32,7 @@ function DashboardContent() {
         setIsProcessing(false);
 
         if (user) {
-          createSessionCookie();
+          createSessionCookie(user.uid);
 
           if (!redirectHandledRef.current && process.env.NODE_ENV !== 'test') {
             redirectHandledRef.current = true;

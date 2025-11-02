@@ -1,5 +1,5 @@
 import * as cookie from 'cookie';
-import { v4 as uuidv4, v5 as uuidv5 } from 'uuid';
+import { v5 as uuidv5 } from 'uuid';
 
 // UUID名前空間をホスト名から生成し、環境ごとに異なるCookie名を割り当てる。
 const host =
@@ -26,11 +26,14 @@ function writeSessionCookie(sessionId) {
   );
 }
 
-// 新しいセッションIDを払い出し、Cookieへ保存する。
-export function createSessionCookie() {
-  const sessionId = uuidv4();
-  writeSessionCookie(sessionId);
-  return sessionId;
+// ユーザーIDをCookieへ保存する。
+export function createSessionCookie(userId) {
+  if (!userId) {
+    throw new Error('userId is required to create a session cookie.');
+  }
+
+  writeSessionCookie(userId);
+  return userId;
 }
 
 // ログアウト時に同名Cookieを即時失効させる。

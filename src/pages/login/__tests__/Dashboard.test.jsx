@@ -73,12 +73,14 @@ describe('Dashboard login flow', () => {
     render(<Dashboard />);
 
     expect(mockOnAuthStateChanged).toHaveBeenCalled();
+    const uid = 'test-uid';
     act(() => {
-      authObserver?.({ uid: 'test-uid' });
+      authObserver?.({ uid });
     });
 
     await screen.findByText('ログインが完了しました。ダッシュボードへ移動します…');
     expect(mockCreateSessionCookie).toHaveBeenCalledTimes(1);
+    expect(mockCreateSessionCookie).toHaveBeenCalledWith(uid);
   });
 
   test('ログイン失敗時にエラーメッセージを表示する', async () => {
