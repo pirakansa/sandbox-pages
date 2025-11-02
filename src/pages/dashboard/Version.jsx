@@ -110,7 +110,6 @@ export default function Version() {
                 {versionLabel}
               </Typography>
             </Box>
-
             <Divider sx={{ my: 2 }} />
 
             <Typography variant="subtitle2" color="text.secondary">

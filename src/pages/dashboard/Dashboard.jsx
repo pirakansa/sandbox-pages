@@ -6,6 +6,7 @@ import Ghviewer from './Ghviewer.jsx';
 import Fgraphviewer from './Fgraphviewer.jsx';
 import Cameraviewer from './Cameraviewer.jsx';
 import Version from './Version.jsx';
+import SessionStatus from './SessionStatus.jsx';
 import WasmPlayground from './WasmPlayground.jsx';
 
 
@@ -37,6 +38,7 @@ function DashboardContent() {
             <Route path="/fgv" element={<Fgraphviewer />} />
             <Route path="/camv" element={<Cameraviewer />} />
             <Route path="/version" element={<Version />} />
+            <Route path="/session" element={<SessionStatus />} />
             <Route path="/wasm" element={<WasmPlayground />} />
           </Routes>
         </HashRouter>

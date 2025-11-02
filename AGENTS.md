@@ -79,6 +79,9 @@ We follow the project layout.
 * Do not silently discard errors.. Prefer `console.error` for user-facing messages.
 * Extract magic numbers and hard-coded URLs into constants with meaningful names within the module.
 * Avoid large, unrelated refactors and keep the impact of changes minimal.
+* The following comments are required:
+  * File header
+  * Function header
 
 ---
 

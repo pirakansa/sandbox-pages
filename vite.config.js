@@ -42,6 +42,7 @@ export default defineConfig({
       }
     })
   ],
+  envDir: __dirname,
   define: {
     'import.meta.env.VITE_APP_VERSION': JSON.stringify(process.env.npm_package_version || 'dev'),
     __APP_VERSION__: JSON.stringify(process.env.npm_package_version || 'dev'),
