@@ -49,6 +49,39 @@ function MenuListsContent({ onclick }) {
     }
   };
 
+  const navigationLinks = [
+    {
+      href: '#/home',
+      icon: <HomeIcon />,
+      label: 'HOME'
+    },
+    {
+      href: '#/ghv',
+      icon: <PageviewIcon />,
+      label: 'Github Viwer'
+    },
+    {
+      href: '#/version',
+      icon: <InfoIcon />,
+      label: 'Version'
+    },
+    {
+      href: '#/fgv',
+      icon: <GrainIcon />,
+      label: 'ForceGraph Viwer'
+    },
+    {
+      href: '#/camv',
+      icon: <QrCodeIcon />,
+      label: 'Camera Viwer'
+    },
+    {
+      href: '#/wasm',
+      icon: <ScienceIcon />,
+      label: 'WASM Lab'
+    }
+  ];
+
   return (
     <>
       <List component="nav" >
@@ -56,63 +89,28 @@ function MenuListsContent({ onclick }) {
           Content Menus
         </ListSubheader>
 
-        <Link underline='none' href="#/home">
-          <ListItemButton onClick={onclick}>
+        {navigationLinks.map(({ href, icon, label }) => (
+          <ListItemButton
+            key={href}
+            component={Link}
+            href={href}
+            underline="none"
+            onClick={onclick}
+            sx={{ width: '100%', color: 'inherit', textDecoration: 'none' }}
+          >
             <ListItemIcon>
-              <HomeIcon />
+              {icon}
             </ListItemIcon>
-            <ListItemText primary="HOME" />
+            <ListItemText primary={label} />
           </ListItemButton>
-        </Link>
-
-        <Link underline='none' href="#/ghv">
-          <ListItemButton onClick={onclick}>
-            <ListItemIcon>
-              <PageviewIcon />
-            </ListItemIcon>
-            <ListItemText primary="Github Viwer" />
-          </ListItemButton>
-        </Link>
-
-        <Link underline='none' href="#/version">
-          <ListItemButton onClick={onclick}>
-            <ListItemIcon>
-              <InfoIcon />
-            </ListItemIcon>
-            <ListItemText primary="Version" />
-          </ListItemButton>
-        </Link>
-
-        <Link underline='none' href="#/fgv">
-          <ListItemButton onClick={onclick}>
-            <ListItemIcon>
-              <GrainIcon />
-            </ListItemIcon>
-            <ListItemText primary="ForceGraph Viwer" />
-          </ListItemButton>
-        </Link>
-
-        <Link underline='none' href="#/camv">
-          <ListItemButton onClick={onclick}>
-            <ListItemIcon>
-              <QrCodeIcon />
-            </ListItemIcon>
-            <ListItemText primary="Camera Viwer" />
-          </ListItemButton>
-        </Link>
-
-        <Link underline='none' href="#/wasm">
-          <ListItemButton onClick={onclick}>
-            <ListItemIcon>
-              <ScienceIcon />
-            </ListItemIcon>
-            <ListItemText primary="WASM Lab" />
-          </ListItemButton>
-        </Link>
+        ))}
 
         <Divider />
 
-        <ListItemButton component="button" onClick={handleLogout}>
+        <ListItemButton
+          onClick={handleLogout}
+          sx={{ width: '100%' }}
+        >
           <ListItemIcon>
             <LogoutIcon />
           </ListItemIcon>
