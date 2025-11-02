@@ -15,12 +15,24 @@ import {
   ThemeModeContext
 } from './themeModeContext.js';
 
+const DEFAULT_THEME_MODE = 'system';
+let inMemoryStoredThemeMode = DEFAULT_THEME_MODE;
+
 function readStoredThemeMode() {
   if (typeof window === 'undefined') {
-    return 'system';
+    return inMemoryStoredThemeMode;
   }
-  const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
-  return THEME_MODE_VALUES.includes(stored) ? stored : 'system';
+  try {
+    const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
+    if (THEME_MODE_VALUES.includes(stored)) {
+      inMemoryStoredThemeMode = stored;
+      return stored;
+    }
+  } catch (error) {
+    console.error('Failed to read theme mode from localStorage.', error);
+  }
+  inMemoryStoredThemeMode = DEFAULT_THEME_MODE;
+  return inMemoryStoredThemeMode;
 }
 
 function detectSystemThemeMode() {
@@ -110,10 +122,15 @@ function AppThemeProvider({ children }) {
   const theme = useMemo(() => createAppTheme(resolvedMode), [resolvedMode]);
 
   useEffect(() => {
+    inMemoryStoredThemeMode = THEME_MODE_VALUES.includes(mode) ? mode : DEFAULT_THEME_MODE;
     if (typeof window === 'undefined') {
       return;
     }
-    window.localStorage.setItem(THEME_STORAGE_KEY, mode);
+    try {
+      window.localStorage.setItem(THEME_STORAGE_KEY, inMemoryStoredThemeMode);
+    } catch (error) {
+      console.error('Failed to write theme mode to localStorage.', error);
+    }
   }, [mode]);
 
   useEffect(() => {
