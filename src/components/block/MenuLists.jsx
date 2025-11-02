@@ -8,6 +8,7 @@ import PageviewIcon from '@mui/icons-material/Pageview';
 import GrainIcon from '@mui/icons-material/Grain';
 import QrCodeIcon from '@mui/icons-material/QrCode';
 import InfoIcon from '@mui/icons-material/Info';
+import FingerprintIcon from '@mui/icons-material/Fingerprint';
 import LogoutIcon from '@mui/icons-material/Logout';
 import ScienceIcon from '@mui/icons-material/Science';
 import List from '@mui/material/List';
@@ -69,6 +70,11 @@ function MenuListsContent({ onclick }) {
       href: '#/fgv',
       icon: <GrainIcon />,
       label: 'ForceGraph Viwer'
+    },
+    {
+      href: '#/session',
+      icon: <FingerprintIcon />,
+      label: 'Session Status'
     },
     {
       href: '#/camv',
