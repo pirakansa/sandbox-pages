@@ -6,7 +6,7 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import SettingsBrightnessIcon from '@mui/icons-material/SettingsBrightness';
 import { useTheme } from '@mui/material/styles';
-import { useThemeMode } from '../../utils/Theme.jsx';
+import { useThemeMode } from '../../utils/themeModeContext.js';
 
 /**
  * Render the three-state theme mode switcher (light / system / dark).

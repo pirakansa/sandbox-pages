@@ -2,24 +2,18 @@
 import './Global.scss';
 import PropTypes from 'prop-types';
 import {
-  createContext,
   useCallback,
-  useContext,
   useEffect,
   useMemo,
   useState
 } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider as MuiThemeProvider, createTheme } from '@mui/material/styles';
-
-const THEME_STORAGE_KEY = 'app/theme-mode';
-const THEME_MODE_VALUES = ['light', 'dark', 'system'];
-
-const ThemeModeContext = createContext({
-  mode: 'system',
-  resolvedMode: 'light',
-  setMode: () => {}
-});
+import {
+  THEME_MODE_VALUES,
+  THEME_STORAGE_KEY,
+  ThemeModeContext
+} from './themeModeContext.js';
 
 function readStoredThemeMode() {
   if (typeof window === 'undefined') {
@@ -176,17 +170,6 @@ AppThemeProvider.propTypes = {
   children: PropTypes.node
 };
 
-function useThemeMode() {
-  return useContext(ThemeModeContext);
-}
-
 export {
-  AppThemeProvider,
-  THEME_MODE_VALUES,
-  THEME_STORAGE_KEY,
-  ThemeModeContext,
-  createAppTheme,
-  useThemeMode
+  AppThemeProvider
 };
-
-export default createAppTheme('light');

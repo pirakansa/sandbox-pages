@@ -62,7 +62,7 @@ describe('Dashboard login flow', () => {
 
     expect(mockRemoveSessionCookie).toHaveBeenCalledTimes(1);
 
-    const loginButtons = await screen.findAllByRole('button', { name: '匿名でログイン' });
+    const loginButtons = await screen.findAllByRole('button', { name: 'ゲストパスで入室' });
     const clickableButton = loginButtons.find((button) => !button.disabled) ?? loginButtons[0];
     await user.click(clickableButton);
 
@@ -95,7 +95,7 @@ describe('Dashboard login flow', () => {
       authObserver?.(null);
     });
 
-    const loginButtons = await screen.findAllByRole('button', { name: '匿名でログイン' });
+    const loginButtons = await screen.findAllByRole('button', { name: 'ゲストパスで入室' });
     const clickableButton = loginButtons.find((button) => !button.disabled) ?? loginButtons[0];
     await user.click(clickableButton);
 
