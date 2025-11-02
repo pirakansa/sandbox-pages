@@ -14,6 +14,9 @@ import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import Link from '@mui/material/Link';
 import PropTypes from 'prop-types';
+import { signOut } from 'firebase/auth';
+import { auth } from '../../services/firebaseClient.js';
+import { removeSessionCookie } from '../../services/session.js';
 
 
 MenuListsContent.propTypes = {
@@ -26,6 +29,25 @@ MenuLists.propTypes = {
 
 // Build the grouped navigation list items shown inside the drawer.
 function MenuListsContent({ onclick }) {
+
+  const handleLogout = async () => {
+    if (typeof onclick === 'function') {
+      onclick();
+    }
+
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.error('ログアウトに失敗しました', error);
+      return;
+    }
+
+    removeSessionCookie();
+
+    if (typeof window !== 'undefined' && window.location?.replace) {
+      window.location.replace('/login.html');
+    }
+  };
 
   return (
     <>
@@ -90,14 +112,12 @@ function MenuListsContent({ onclick }) {
 
         <Divider />
 
-        <Link underline='none' href="/login.html">
-          <ListItemButton onClick={onclick}>
-            <ListItemIcon>
-              <LogoutIcon />
-            </ListItemIcon>
-            <ListItemText primary="LOGOUT" />
-          </ListItemButton>
-        </Link>
+        <ListItemButton component="button" onClick={handleLogout}>
+          <ListItemIcon>
+            <LogoutIcon />
+          </ListItemIcon>
+          <ListItemText primary="LOGOUT" />
+        </ListItemButton>
 
       </List>
     </>
