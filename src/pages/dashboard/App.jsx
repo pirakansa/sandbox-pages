@@ -1,7 +1,5 @@
 // Dashboard shell responsible for applying theme and session checks.
-import theme from '../../utils/Theme.js';
 import Container from '@mui/material/Container';
-import { ThemeProvider } from '@mui/material/styles';
 import { useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { Header, EnsureHeader } from '../../components/block/Header.jsx';
@@ -12,6 +10,7 @@ import {
   getSessionCookieValue,
   removeSessionCookie
 } from '../../services/session.js';
+import { AppThemeProvider } from '../../utils/Theme.jsx';
 
 function redirectToLogin() {
   if (typeof window !== 'undefined' && window.location?.replace) {
@@ -63,7 +62,7 @@ function App() {
 
   return (
     <>
-      <ThemeProvider theme={theme}>
+      <AppThemeProvider>
         <Container {...FULL_WIDTH_PROPERTY} >
 
           <Header>
@@ -77,7 +76,7 @@ function App() {
           <EnsureHeader />
 
         </Container>
-      </ThemeProvider>
+      </AppThemeProvider>
     </>
   )
 }

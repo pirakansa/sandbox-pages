@@ -1,16 +1,19 @@
-// Session status page rendering Firebase auth snapshot only.
+// Session status page rendering Firebase auth snapshot only with theme controls.
 import { useCallback, useEffect, useState } from 'react';
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
+import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import CircularProgress from '@mui/material/CircularProgress';
+import Divider from '@mui/material/Divider';
 import Snackbar from '@mui/material/Snackbar';
 import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
 import { onAuthStateChanged } from 'firebase/auth';
+import Typography from '@mui/material/Typography';
+import { useTheme } from '@mui/material/styles';
 import { auth } from '../../services/firebaseClient.js';
 
 /**
@@ -28,6 +31,7 @@ export default function SessionStatus() {
     severity: 'info'
   });
   const [busy, setBusy] = useState(false);
+  const theme = useTheme();
 
   const handleRefresh = useCallback(() => {
     setBusy(true);
@@ -102,27 +106,38 @@ export default function SessionStatus() {
         sx={{
           display: 'flex',
           justifyContent: 'center',
-          mt: 4,
+          alignItems: 'flex-start',
+          minHeight: '100%',
+          py: { xs: 4, md: 6 },
           px: 2,
+          bgcolor: 'background.default',
+          transition: theme.transitions.create('background-color', {
+            duration: theme.transitions.duration.shortest
+          })
         }}
       >
         <Card
-          elevation={4}
+          elevation={0}
           sx={{
             width: '100%',
-            maxWidth: 520,
+            maxWidth: 520
           }}
         >
-          <CardContent>
-            <Typography variant="h5" component="h1" gutterBottom>
-              セッションステータス
-            </Typography>
-            <Typography variant="body1" color="text.secondary">
-              Firebase 認証で現在アクティブな UID を確認できます。
-            </Typography>
-
-            <Stack spacing={1.5} sx={{ mt: 3 }}>
-              <div>
+          <CardHeader
+            title="セッションステータス"
+            subheader="Firebase 認証で現在アクティブな UID を確認できます。"
+            sx={{
+              alignItems: 'center',
+              '& .MuiCardHeader-title': {
+                fontWeight: 700,
+                fontSize: '1.25rem'
+              }
+            }}
+          />
+          <Divider />
+          <CardContent sx={{ pt: 3 }}>
+            <Stack spacing={2}>
+              <Stack spacing={0.5}>
                 <Typography variant="subtitle2" color="text.secondary">
                   Firebase認証のUID
                 </Typography>
@@ -132,7 +147,10 @@ export default function SessionStatus() {
                   </Typography>
                 )}
                 {authSnapshot.status === 'ready' && authSnapshot.uid && (
-                  <Typography variant="h6" sx={{ fontFamily: 'monospace' }}>
+                  <Typography
+                    variant="h6"
+                    sx={{ fontFamily: 'monospace', wordBreak: 'break-all' }}
+                  >
                     {authSnapshot.uid}
                   </Typography>
                 )}
@@ -146,19 +164,24 @@ export default function SessionStatus() {
                     {authSnapshot.error}
                   </Typography>
                 )}
-              </div>
+              </Stack>
             </Stack>
           </CardContent>
 
-          <CardActions sx={{ px: 3, pb: 3 }}>
+          <CardActions sx={{ px: 3, pb: 3, pt: 0 }}>
             <Button
               variant="contained"
               color="primary"
               onClick={handleRefresh}
               disabled={busy}
               fullWidth
+              size="large"
             >
-              {busy ? <CircularProgress size={20} color="inherit" /> : '最新状態を再取得'}
+              {busy ? (
+                <CircularProgress size={20} color="inherit" />
+              ) : (
+                '最新状態を再取得'
+              )}
             </Button>
           </CardActions>
         </Card>

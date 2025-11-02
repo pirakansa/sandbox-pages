@@ -4,6 +4,8 @@ import { useWindowSize } from '../../utils/WindowSize.js';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import jpegLogo from '../../assets/logo.jpeg';
+import Box from '@mui/material/Box';
+import ThemeModeToggle from '../../components/atoms/ThemeModeToggle.jsx';
 
 // Calculate responsive dimensions for the splash image element.
 function GetImageSizeProp(size) {
@@ -30,6 +32,15 @@ function DashboardContent() {
   return (
     <>
       <Container {...MARGIN_WIDTH_PROPERTY} >
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            mb: 2
+          }}
+        >
+          <ThemeModeToggle size="small" />
+        </Box>
         <Grid container >
           <Grid item className={styles.center} >
             <div>

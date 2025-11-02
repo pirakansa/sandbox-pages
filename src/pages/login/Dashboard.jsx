@@ -13,6 +13,7 @@ import {
   removeSessionCookie
 } from '../../services/session.js';
 import styles from './Dashboard.module.scss';
+import ThemeModeToggle from '../../components/atoms/ThemeModeToggle.jsx';
 
 // Render the login button and register session cookies when invoked.
 function DashboardContent() {
@@ -85,6 +86,15 @@ function DashboardContent() {
   return (
     <>
       <Container {...MARGIN_WIDTH_PROPERTY} >
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            mb: 2
+          }}
+        >
+          <ThemeModeToggle size="small" />
+        </Box>
         <Grid container>
           <Box className={styles.center} >
 

@@ -1,7 +1,8 @@
-import { act, fireEvent, render, screen } from '@testing-library/react';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { act, cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import SessionStatus from '../SessionStatus.jsx';
+import { AppThemeProvider } from '../../../utils/Theme.jsx';
 
 const { mockAuth, mockOnAuthStateChanged } = vi.hoisted(() => ({
   mockAuth: { currentUser: null },
@@ -9,6 +10,14 @@ const { mockAuth, mockOnAuthStateChanged } = vi.hoisted(() => ({
 }));
 
 let authObserver;
+
+function renderWithTheme(ui) {
+  return render(<AppThemeProvider>{ui}</AppThemeProvider>);
+}
+
+afterEach(() => {
+  cleanup();
+});
 
 vi.mock('firebase/auth', () => ({
   onAuthStateChanged: (...args) => {
@@ -27,13 +36,14 @@ describe('SessionStatus', () => {
     mockAuth.currentUser = null;
     mockOnAuthStateChanged.mockClear();
     authObserver = undefined;
+    window.localStorage.clear();
   });
 
   it('認証済みUIDを表示する', async () => {
     const uid = 'user-12345';
     mockAuth.currentUser = { uid };
 
-    render(<SessionStatus />);
+    renderWithTheme(<SessionStatus />);
 
     await act(async () => {
       authObserver?.({ uid });
@@ -43,7 +53,7 @@ describe('SessionStatus', () => {
   });
 
   it('認証済みユーザーがいなければメッセージを表示する', async () => {
-    render(<SessionStatus />);
+    renderWithTheme(<SessionStatus />);
 
     await act(async () => {
       authObserver?.(null);
@@ -55,7 +65,7 @@ describe('SessionStatus', () => {
   });
 
   it('リフレッシュ操作で最新のUIDを再取得する', async () => {
-    render(<SessionStatus />);
+    renderWithTheme(<SessionStatus />);
 
     await act(async () => {
       authObserver?.(null);

@@ -1,8 +1,7 @@
 // Splash screen shell that shows the landing dashboard with global theme.
-import theme from '../../utils/Theme.js';
 import Container from '@mui/material/Container';
-import { ThemeProvider } from '@mui/material/styles';
 import Dashboard from "./Dashboard.jsx";
+import { AppThemeProvider } from '../../utils/Theme.jsx';
 
 // Wrap the splash dashboard with the shared layout and theme objects.
 function App() {
@@ -14,11 +13,11 @@ function App() {
 
   return (
     <>
-      <ThemeProvider theme={theme}>
+      <AppThemeProvider>
         <Container {...FULL_WIDTH_PROPERTY} >
           <Dashboard />
         </Container>
-      </ThemeProvider>
+      </AppThemeProvider>
     </>
   )
 }
