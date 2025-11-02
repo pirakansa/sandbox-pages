@@ -9,7 +9,7 @@
     "build-dev": "vite build --minify false --sourcemap hidden",
     "lint": "eslint . --max-warnings 0",
     "test": "vitest run",
-    "check-deps" : "npx depcheck",
+    "check-deps": "npx depcheck",
     "preview": "vite preview --host"
   },
   "author": "pirakansa",
@@ -33,6 +33,9 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.25.1",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
+    "@testing-library/user-event": "^14.5.2",
     "@types/react": "^19.1.2",
     "@vitejs/plugin-react": "^4.4.1",
     "eslint": "^9.25.1",
@@ -40,13 +43,11 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.0.0",
+    "jsdom": "^25.0.1",
+    "rollup-plugin-visualizer": "^6.0.5",
     "sass": "^1.87.0",
     "vite": "^6.4.1",
     "vite-plugin-pwa": "^1.0.0",
-    "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.2.0",
-    "@testing-library/user-event": "^14.5.2",
-    "jsdom": "^25.0.1",
     "vitest": "^4.0.6"
   }
 }
