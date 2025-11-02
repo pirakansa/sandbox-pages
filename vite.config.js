@@ -1,5 +1,6 @@
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
+import { visualizer } from "rollup-plugin-visualizer"
 import { VitePWA } from 'vite-plugin-pwa'
 import react from '@vitejs/plugin-react'
 
@@ -8,6 +9,7 @@ const ROOT_DIR = resolve(__dirname, 'src');
 export default defineConfig({
   plugins: [
     react(),
+    visualizer({filename: 'bundle-analysis.html'}),
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: [
@@ -57,6 +59,13 @@ export default defineConfig({
         index: resolve(ROOT_DIR, 'index.html'),
         top: resolve(ROOT_DIR, 'top.html'),
         login: resolve(ROOT_DIR, 'login.html'),
+      },
+      output: {
+        manualChunks: {
+          jsqr: ["jsqr"],
+          forcegraph2d: ["react-force-graph-2d"],
+          octkit: ["octokit"],
+        },
       },
     },
   },
