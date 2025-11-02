@@ -36,6 +36,17 @@ export function createSessionCookie(userId) {
   return userId;
 }
 
+// セッションCookieを読み出し、保存済みのユーザーIDを返す。
+export function getSessionCookieValue() {
+  if (typeof document === 'undefined') {
+    return null;
+  }
+
+  const parsedCookies = cookie.parse(document.cookie ?? '');
+  const storedUserId = parsedCookies[SESSION_COOKIE_NAME];
+  return storedUserId ?? null;
+}
+
 // ログアウト時に同名Cookieを即時失効させる。
 export function removeSessionCookie() {
   if (typeof document === 'undefined') {
