@@ -99,7 +99,7 @@ function DashboardContent() {
                   onClick={handleLogin}
                   disabled={isProcessing}
                 >
-                  匿名でログイン
+                  ゲストパスで入室
                 </Button>
               )}
 
