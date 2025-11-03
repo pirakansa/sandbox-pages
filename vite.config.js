@@ -41,6 +41,10 @@ export default defineConfig({
       },
       devOptions: {
         enabled: false,
+      },
+      workbox: {
+        // ignoreURLParametersMatching: [/.*/],
+        navigateFallbackDenylist: [/\/login\.html/],
       }
     })
   ],
