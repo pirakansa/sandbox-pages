@@ -1,5 +1,4 @@
 // Dashboard shell responsible for applying theme and session checks.
-import Container from '@mui/material/Container';
 import { useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { Header, EnsureHeader } from '../../components/block/Header.jsx';
@@ -20,11 +19,6 @@ function redirectToLogin() {
 
 // Guard dashboard access by validating cookies and wiring layout.
 function App() {
-
-  const FULL_WIDTH_PROPERTY = {
-    maxWidth: false,
-    disableGutters: true,
-  };
 
   useEffect(() => {
     const cookieUserId = getSessionCookieValue();
@@ -63,19 +57,18 @@ function App() {
   return (
     <>
       <AppThemeProvider>
-        <Container {...FULL_WIDTH_PROPERTY} >
-
+        <div className="min-h-screen bg-slate-100 transition-colors dark:bg-slate-950">
           <Header>
             <MenuBtn />
           </Header>
-
-          <EnsureHeader />
-
-          <Dashboard />
-
-          <EnsureHeader />
-
-        </Container>
+          <div className="flex flex-col">
+            <EnsureHeader />
+            <main className="mx-auto w-full max-w-6xl px-4 pb-12 pt-4 md:px-6">
+              <Dashboard />
+            </main>
+            <EnsureHeader />
+          </div>
+        </div>
       </AppThemeProvider>
     </>
   )
