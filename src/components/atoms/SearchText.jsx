@@ -1,10 +1,6 @@
 // Search text input with submit button used across dashboard views.
 import PropTypes from 'prop-types';
 import { useRef } from 'react';
-import Paper from '@mui/material/Paper';
-import InputBase from '@mui/material/InputBase';
-import IconButton from '@mui/material/IconButton';
-import SearchIcon from '@mui/icons-material/Search';
 
 SearchTextContent.propTypes = {
   onsubmit: PropTypes.any,
@@ -26,30 +22,50 @@ function SearchTextContent({ onsubmit, placeholder }) {
   }
 
   return (
-    <Paper
-      component="form"
-      sx={{ display: 'flex' }}
+    <form
+      className="flex w-full items-stretch overflow-hidden rounded-full border border-slate-300 bg-white shadow-sm ring-slate-200 focus-within:ring-2 focus-within:ring-blue-400 dark:border-slate-700 dark:bg-slate-900 dark:ring-slate-700"
       onSubmit={(ev)=>{
         ev.preventDefault();
         onSubmitHandler();
       }}
     >
 
-      <InputBase
-        sx={{ ml: 1, flex: 1 }}
+      <input
+        ref={ref}
+        type="search"
         placeholder={placeholder}
-        inputRef={ref}
+        className="flex-1 bg-transparent px-4 py-2 text-base text-slate-900 placeholder:text-slate-400 focus:outline-none dark:text-slate-100 dark:placeholder:text-slate-500"
       />
 
-      <IconButton
-        onClick={()=>onSubmitHandler()}
+      <button
         type="button"
-        sx={{ p: '0.5em' }}
+        onClick={()=>onSubmitHandler()}
+        className="m-1 inline-flex items-center justify-center rounded-full bg-blue-500 px-4 text-sm font-semibold text-white transition hover:bg-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+        aria-label="検索"
       >
-        <SearchIcon />
-      </IconButton>
+        <svg
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+          className="h-5 w-5"
+        >
+          <path
+            d="m15.5 15.5 4 4"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+          <circle
+            cx="11"
+            cy="11"
+            r="6"
+            stroke="currentColor"
+            strokeWidth="2"
+            fill="none"
+          />
+        </svg>
+      </button>
     
-    </Paper>
+    </form>
   );
 }
 

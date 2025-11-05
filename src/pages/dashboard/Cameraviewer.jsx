@@ -1,12 +1,9 @@
 // Camera-based QR code scanner displayed within a modal dialog.
-import styles from './Dashboard.module.scss';
 import { useEffect, useState, useRef } from 'react';
 
 import jsQR from 'jsqr';
-import Dialog from '@mui/material/Dialog';
 import AbsButtomBtn from '../../components/atoms/AbsButtomBtn';
 import UpperInfo from '../../components/block/UpperInfo';
-import Button from '@mui/material/Button';
 
 
 // Handle camera streaming, QR scanning, and teardown logic.
@@ -83,19 +80,22 @@ function CameraviewerContent() {
 
     return(
       <UpperInfo>
-        <div className={styles.scannedInfo}>
-          <span className={styles.scannedText}>{scannedData}</span>
-          <Button
-            size="small"
-            variant="contained"
-            color="primary"
+        <div className="flex flex-col gap-3 md:flex-row md:items-center">
+          <span className="flex-1 break-words text-sm leading-relaxed">
+            {scannedData}
+          </span>
+          <button
+            type="button"
             onClick={handleCopyScannedData}
+            className="inline-flex items-center justify-center rounded-full bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-md shadow-blue-600/30 transition hover:bg-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-400"
           >
             Copy
-          </Button>
+          </button>
         </div>
         {copyMessage && (
-          <div className={styles.copyMessage}>{copyMessage}</div>
+          <div className="mt-1 text-xs text-blue-700 dark:text-blue-200">
+            {copyMessage}
+          </div>
         )}
       </UpperInfo>
     );
@@ -156,12 +156,17 @@ function CameraviewerContent() {
   }, [scannedData]);
 
   return (
-    <>
-      <div className={styles.qrcanv}>
+    <div className="relative flex h-full flex-1 flex-col items-center justify-center overflow-hidden bg-slate-950 text-white">
+      <div className="hidden">
         <canvas ref={canvasRef} id="js-canvas"></canvas>
       </div>
-      <div className={styles.centerCam}>
-        <video ref={videoRef} id="js-video" className="reader-video" playsInline={true} ></video>
+      <div className="flex h-full w-full flex-1 items-center justify-center">
+        <video
+          ref={videoRef}
+          id="js-video"
+          className="max-h-[80vh] w-full max-w-xl rounded-3xl bg-black object-cover shadow-2xl shadow-black/60"
+          playsInline={true}
+        ></video>
       </div>
 
       <AbsButtomBtn
@@ -191,18 +196,15 @@ function CameraviewerContent() {
         }}
       />
       {showScannedInfo()}
-    </>
+    </div>
   );
 }
 
 // Wrap the content in a full-screen dialog for immersive scanning.
 export default function Cameraviewer() {
   return (
-    <Dialog
-      fullScreen
-      open={true}
-    >
+    <div className="fixed inset-0 z-[1400] flex bg-slate-950">
       <CameraviewerContent />
-    </Dialog>
+    </div>
   );
 }

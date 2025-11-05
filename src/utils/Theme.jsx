@@ -1,4 +1,4 @@
-// Shared theme provider and mode context for consistent styling across views.
+// Shared theme provider exposing theme mode context and Tailwind dark-mode orchestration.
 import './Global.scss';
 import PropTypes from 'prop-types';
 import {
@@ -7,8 +7,6 @@ import {
   useMemo,
   useState
 } from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
-import { ThemeProvider as MuiThemeProvider, createTheme } from '@mui/material/styles';
 import {
   THEME_MODE_VALUES,
   THEME_STORAGE_KEY,
@@ -43,83 +41,26 @@ function detectSystemThemeMode() {
 }
 
 /**
- * Create the Material UI theme tailored for this project.
- */
-function createAppTheme(mode = 'light') {
-  return createTheme({
-    palette: {
-      mode,
-      primary: {
-        main: mode === 'dark' ? '#90caf9' : '#1f6feb'
-      },
-      background: {
-        default: mode === 'dark' ? '#0d1117' : '#f4f6fb',
-        paper: mode === 'dark' ? '#161b22' : '#ffffff'
-      },
-      text: {
-        primary: mode === 'dark' ? '#f0f6fc' : '#0d1117',
-        secondary:
-          mode === 'dark' ? 'rgba(240, 246, 252, 0.65)' : 'rgba(15, 23, 42, 0.65)'
-      }
-    },
-    shape: {
-      borderRadius: 12
-    },
-    typography: {
-      fontFamily: `'Roboto','Noto Sans JP','Helvetica','Arial',sans-serif`,
-      button: {
-        textTransform: 'none',
-        fontWeight: 600
-      }
-    },
-    components: {
-      MuiButton: {
-        styleOverrides: {
-          root: {
-            borderRadius: 999
-          }
-        }
-      },
-      MuiCard: {
-        styleOverrides: {
-          root: {
-            borderWidth: 1,
-            borderStyle: 'solid',
-            borderColor:
-              mode === 'dark'
-                ? 'rgba(255, 255, 255, 0.08)'
-                : 'rgba(15, 23, 42, 0.08)',
-            boxShadow:
-              mode === 'dark'
-                ? '0 20px 45px rgba(15, 23, 42, 0.18)'
-                : '0 20px 45px rgba(15, 23, 42, 0.12)'
-          }
-        }
-      },
-      MuiAppBar: {
-        styleOverrides: {
-          root: {
-            borderBottom: mode === 'dark'
-              ? '1px solid rgba(255, 255, 255, 0.08)'
-              : '1px solid rgba(15, 23, 42, 0.08)',
-            backgroundImage: 'none',
-            backdropFilter: 'blur(12px)'
-          }
-        }
-      }
-    }
-  });
-}
-
-/**
- * Provide the shared theme and expose hook-based mode controls.
+ * Provide the shared theme context and synchronize Tailwind's dark class.
  */
 function AppThemeProvider({ children }) {
   const [mode, setThemeMode] = useState(() => readStoredThemeMode());
   const [systemMode, setSystemMode] = useState(() => detectSystemThemeMode());
 
   const resolvedMode = mode === 'system' ? systemMode : mode;
-  const theme = useMemo(() => createAppTheme(resolvedMode), [resolvedMode]);
+
+  useEffect(() => {
+    if (typeof document === 'undefined') {
+      return;
+    }
+    const root = document.documentElement;
+    if (resolvedMode === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+    root.style.colorScheme = resolvedMode === 'dark' ? 'dark' : 'light';
+  }, [resolvedMode]);
 
   useEffect(() => {
     inMemoryStoredThemeMode = THEME_MODE_VALUES.includes(mode) ? mode : DEFAULT_THEME_MODE;
@@ -175,10 +116,7 @@ function AppThemeProvider({ children }) {
 
   return (
     <ThemeModeContext.Provider value={contextValue}>
-      <MuiThemeProvider theme={theme}>
-        <CssBaseline />
-        {children}
-      </MuiThemeProvider>
+      {children}
     </ThemeModeContext.Provider>
   );
 }

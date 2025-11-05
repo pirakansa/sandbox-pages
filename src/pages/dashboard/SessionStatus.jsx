@@ -1,20 +1,18 @@
 // Session status page rendering Firebase auth snapshot only with theme controls.
 import { useCallback, useEffect, useState } from 'react';
-import Alert from '@mui/material/Alert';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardHeader from '@mui/material/CardHeader';
-import CardContent from '@mui/material/CardContent';
-import CircularProgress from '@mui/material/CircularProgress';
-import Divider from '@mui/material/Divider';
-import Snackbar from '@mui/material/Snackbar';
-import Stack from '@mui/material/Stack';
 import { onAuthStateChanged } from 'firebase/auth';
-import Typography from '@mui/material/Typography';
-import { useTheme } from '@mui/material/styles';
 import { auth } from '../../services/firebaseClient.js';
+
+const SNACKBAR_STYLES = {
+  success:
+    'border-emerald-200 bg-emerald-50 text-emerald-900 shadow-emerald-900/10 dark:border-emerald-500/40 dark:bg-emerald-900/40 dark:text-emerald-100',
+  error:
+    'border-rose-200 bg-rose-50 text-rose-900 shadow-rose-900/10 dark:border-rose-500/40 dark:bg-rose-900/40 dark:text-rose-100',
+  info:
+    'border-sky-200 bg-sky-50 text-sky-900 shadow-sky-900/10 dark:border-sky-500/40 dark:bg-sky-900/40 dark:text-sky-100',
+  warning:
+    'border-amber-200 bg-amber-50 text-amber-900 shadow-amber-900/10 dark:border-amber-500/40 dark:bg-amber-900/40 dark:text-amber-100'
+};
 
 /**
  * Render the Firebase auth UID with quick status refresh controls.
@@ -31,7 +29,6 @@ export default function SessionStatus() {
     severity: 'info'
   });
   const [busy, setBusy] = useState(false);
-  const theme = useTheme();
 
   const handleRefresh = useCallback(() => {
     setBusy(true);
@@ -93,114 +90,102 @@ export default function SessionStatus() {
     };
   }, []);
 
-  const handleSnackbarClose = useCallback((_, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
+  const handleSnackbarClose = useCallback(() => {
     setSnackbar((prev) => ({ ...prev, open: false }));
   }, []);
 
+  useEffect(() => {
+    if (!snackbar.open) {
+      return undefined;
+    }
+    const timer = setTimeout(() => {
+      setSnackbar((prev) => ({ ...prev, open: false }));
+    }, 4000);
+    return () => clearTimeout(timer);
+  }, [snackbar.open]);
+
   return (
     <>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'flex-start',
-          minHeight: '100%',
-          py: { xs: 4, md: 6 },
-          px: 2,
-          bgcolor: 'background.default',
-          transition: theme.transitions.create('background-color', {
-            duration: theme.transitions.duration.shortest
-          })
-        }}
-      >
-        <Card
-          elevation={0}
-          sx={{
-            width: '100%',
-            maxWidth: 520
-          }}
-        >
-          <CardHeader
-            title="セッションステータス"
-            subheader="Firebase 認証で現在アクティブな UID を確認できます。"
-            sx={{
-              alignItems: 'center',
-              '& .MuiCardHeader-title': {
-                fontWeight: 700,
-                fontSize: '1.25rem'
-              }
-            }}
-          />
-          <Divider />
-          <CardContent sx={{ pt: 3 }}>
-            <Stack spacing={2}>
-              <Stack spacing={0.5}>
-                <Typography variant="subtitle2" color="text.secondary">
+      <div className="flex justify-center px-4 py-6 md:py-10">
+        <section className="w-full max-w-xl rounded-3xl border border-slate-200 bg-white shadow-xl shadow-slate-900/5 transition dark:border-slate-800 dark:bg-slate-900">
+          <header className="border-b border-slate-200 px-6 py-5 dark:border-slate-800">
+            <h1 className="text-lg font-semibold text-slate-900 dark:text-slate-50">
+              セッションステータス
+            </h1>
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+              Firebase 認証で現在アクティブな UID を確認できます。
+            </p>
+          </header>
+
+          <div className="px-6 py-5">
+            <div className="space-y-3">
+              <div className="space-y-1.5">
+                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                   Firebase認証のUID
-                </Typography>
+                </p>
                 {authSnapshot.status === 'checking' && (
-                  <Typography variant="body2" color="text.secondary">
+                  <p className="text-sm text-slate-500 dark:text-slate-400">
                     認証状態を確認しています…
-                  </Typography>
+                  </p>
                 )}
                 {authSnapshot.status === 'ready' && authSnapshot.uid && (
-                  <Typography
-                    variant="h6"
-                    sx={{ fontFamily: 'monospace', wordBreak: 'break-all' }}
-                  >
+                  <p className="break-all font-mono text-base font-semibold text-slate-900 dark:text-slate-100">
                     {authSnapshot.uid}
-                  </Typography>
+                  </p>
                 )}
                 {authSnapshot.status === 'ready' && !authSnapshot.uid && (
-                  <Typography variant="body2" color="text.secondary">
+                  <p className="text-sm text-slate-500 dark:text-slate-400">
                     認証済みユーザーは確認できませんでした。
-                  </Typography>
+                  </p>
                 )}
                 {authSnapshot.status === 'error' && (
-                  <Typography variant="body2" color="error">
+                  <p className="text-sm text-rose-600 dark:text-rose-300">
                     {authSnapshot.error}
-                  </Typography>
+                  </p>
                 )}
-              </Stack>
-            </Stack>
-          </CardContent>
+              </div>
+            </div>
+          </div>
 
-          <CardActions sx={{ px: 3, pb: 3, pt: 0 }}>
-            <Button
-              variant="contained"
-              color="primary"
+          <div className="border-t border-slate-200 px-6 py-5 dark:border-slate-800">
+            <button
+              type="button"
               onClick={handleRefresh}
               disabled={busy}
-              fullWidth
-              size="large"
+              className="inline-flex w-full items-center justify-center rounded-full bg-blue-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-600/30 transition hover:bg-blue-500 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-300 disabled:cursor-not-allowed disabled:bg-blue-400 disabled:opacity-70 dark:bg-blue-500 dark:text-slate-50 dark:hover:bg-blue-400"
             >
               {busy ? (
-                <CircularProgress size={20} color="inherit" />
+                <>
+                  <span className="sr-only">再取得中</span>
+                  <span className="h-5 w-5 animate-spin rounded-full border-2 border-white/60 border-t-transparent" />
+                </>
               ) : (
                 '最新状態を再取得'
               )}
-            </Button>
-          </CardActions>
-        </Card>
-      </Box>
+            </button>
+          </div>
+        </section>
+      </div>
 
-      <Snackbar
-        open={snackbar.open}
-        autoHideDuration={4000}
-        onClose={handleSnackbarClose}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-      >
-        <Alert
-          onClose={handleSnackbarClose}
-          severity={snackbar.severity}
-          sx={{ width: '100%' }}
-        >
-          {snackbar.message}
-        </Alert>
-      </Snackbar>
+      {snackbar.open && (
+        <div className="fixed inset-x-0 bottom-6 flex justify-center px-4">
+          <div
+            className={`relative w-full max-w-md rounded-2xl border px-4 py-3 text-sm shadow-xl ${SNACKBAR_STYLES[snackbar.severity] ?? SNACKBAR_STYLES.info}`}
+            role="status"
+            aria-live="assertive"
+          >
+            <p>{snackbar.message}</p>
+            <button
+              type="button"
+              onClick={handleSnackbarClose}
+              className="absolute right-3 top-3 rounded-full p-1 text-current transition hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-current/60"
+              aria-label="通知を閉じる"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 }

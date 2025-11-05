@@ -1,36 +1,201 @@
 // Navigation menu components rendered in the side drawer.
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import ListSubheader from '@mui/material/ListSubheader';
-import HomeIcon from '@mui/icons-material/Home';
-import PageviewIcon from '@mui/icons-material/Pageview';
-import GrainIcon from '@mui/icons-material/Grain';
-import QrCodeIcon from '@mui/icons-material/QrCode';
-import InfoIcon from '@mui/icons-material/Info';
-import FingerprintIcon from '@mui/icons-material/Fingerprint';
-import LogoutIcon from '@mui/icons-material/Logout';
-import ScienceIcon from '@mui/icons-material/Science';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import Link from '@mui/material/Link';
 import PropTypes from 'prop-types';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../services/firebaseClient.js';
 import { removeSessionCookie } from '../../services/session.js';
 
+function HomeIcon() {
+  return (
+    <svg className="h-5 w-5" viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-5h-4v5H5a1 1 0 0 1-1-1v-9.5Z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function ViewerIcon() {
+  return (
+    <svg className="h-5 w-5" viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        d="M3 12s3.5-6 9-6 9 6 9 6-3.5 6-9 6-9-6-9-6Z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        fill="none"
+      />
+      <circle cx="12" cy="12" r="2.5" fill="currentColor" />
+    </svg>
+  );
+}
+
+function InfoIcon() {
+  return (
+    <svg className="h-5 w-5" viewBox="0 0 24 24" aria-hidden="true">
+      <circle
+        cx="12"
+        cy="12"
+        r="9"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        fill="none"
+      />
+      <path
+        d="M12 10v6"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+      <circle cx="12" cy="7" r="1" fill="currentColor" />
+    </svg>
+  );
+}
+
+function GraphIcon() {
+  return (
+    <svg className="h-5 w-5" viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        d="M4 19V5m0 14h16M8 16l4-7 4 3 4-5"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      />
+    </svg>
+  );
+}
+
+function SessionIcon() {
+  return (
+    <svg className="h-5 w-5" viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        d="M7 8a5 5 0 1 1 10 0v2h1a2 2 0 0 1 2 2v8H4v-8a2 2 0 0 1 2-2h1V8Z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M9 21v-6a3 3 0 0 1 6 0v6"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function QrIcon() {
+  return (
+    <svg className="h-5 w-5" viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        d="M4 4h6v6H4V4Zm10 0h6v6h-6V4Zm0 10h6v6h-6v-6Zm-7 0h3v3H7v-3Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        fill="none"
+        strokeLinejoin="round"
+      />
+      <path d="M14 14h2v2h-2z" fill="currentColor" />
+    </svg>
+  );
+}
+
+function FlaskIcon() {
+  return (
+    <svg className="h-5 w-5" viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        d="M9 3h6m-1 0v6.26l4.32 7.44A2 2 0 0 1 16.53 20H7.47a2 2 0 0 1-1.79-3.3L10 9.26V3"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M9 15h6"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function LogoutIcon() {
+  return (
+    <svg className="h-5 w-5" viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        d="M15 7v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-2"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        fill="none"
+        strokeLinecap="round"
+      />
+      <path
+        d="m10 12 10 0m0 0-3-3m3 3-3 3"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+const navigationLinks = [
+  {
+    href: '#/home',
+    label: 'HOME',
+    Icon: HomeIcon
+  },
+  {
+    href: '#/ghv',
+    label: 'Github Viwer',
+    Icon: ViewerIcon
+  },
+  {
+    href: '#/version',
+    label: 'Version',
+    Icon: InfoIcon
+  },
+  {
+    href: '#/fgv',
+    label: 'ForceGraph Viwer',
+    Icon: GraphIcon
+  },
+  {
+    href: '#/session',
+    label: 'Session Status',
+    Icon: SessionIcon
+  },
+  {
+    href: '#/camv',
+    label: 'Camera Viwer',
+    Icon: QrIcon
+  },
+  {
+    href: '#/wasm',
+    label: 'WASM Lab',
+    Icon: FlaskIcon
+  }
+];
 
 MenuListsContent.propTypes = {
   onclick: PropTypes.any
 };
+
 MenuLists.propTypes = {
   onclick: PropTypes.any
 };
 
-
 // Build the grouped navigation list items shown inside the drawer.
 function MenuListsContent({ onclick }) {
-
   const handleLogout = async () => {
     if (typeof onclick === 'function') {
       onclick();
@@ -50,81 +215,44 @@ function MenuListsContent({ onclick }) {
     }
   };
 
-  const navigationLinks = [
-    {
-      href: '#/home',
-      icon: <HomeIcon />,
-      label: 'HOME'
-    },
-    {
-      href: '#/ghv',
-      icon: <PageviewIcon />,
-      label: 'Github Viwer'
-    },
-    {
-      href: '#/version',
-      icon: <InfoIcon />,
-      label: 'Version'
-    },
-    {
-      href: '#/fgv',
-      icon: <GrainIcon />,
-      label: 'ForceGraph Viwer'
-    },
-    {
-      href: '#/session',
-      icon: <FingerprintIcon />,
-      label: 'Session Status'
-    },
-    {
-      href: '#/camv',
-      icon: <QrCodeIcon />,
-      label: 'Camera Viwer'
-    },
-    {
-      href: '#/wasm',
-      icon: <ScienceIcon />,
-      label: 'WASM Lab'
-    }
-  ];
-
   return (
-    <>
-      <List component="nav" >
-        <ListSubheader>
-          Content Menus
-        </ListSubheader>
-
-        {navigationLinks.map(({ href, icon, label }) => (
-          <ListItemButton
-            key={href}
-            component={Link}
-            href={href}
-            underline="none"
-            onClick={onclick}
-            sx={{ width: '100%', color: 'inherit', textDecoration: 'none' }}
-          >
-            <ListItemIcon>
-              {icon}
-            </ListItemIcon>
-            <ListItemText primary={label} />
-          </ListItemButton>
+    <nav aria-label="メインメニュー" className="w-full bg-white dark:bg-slate-900">
+      <div className="border-b border-slate-200 px-5 py-3 text-sm font-semibold uppercase tracking-wide text-slate-500 dark:border-slate-800 dark:text-slate-400">
+        Content Menus
+      </div>
+      <ul className="divide-y divide-slate-200 dark:divide-slate-800">
+        {navigationLinks.map(({ href, label, Icon }) => (
+          <li key={href}>
+            <a
+              href={href}
+              className="flex items-center gap-4 px-5 py-4 text-slate-700 transition hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent dark:text-slate-100 dark:hover:bg-slate-800"
+              onClick={() => {
+                if (typeof onclick === 'function') {
+                  onclick();
+                }
+              }}
+            >
+              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300">
+                <Icon />
+              </span>
+              <span className="text-sm font-medium">{label}</span>
+            </a>
+          </li>
         ))}
-
-        <Divider />
-
-        <ListItemButton
+      </ul>
+      <div className="border-t border-slate-200 bg-slate-50 px-5 py-4 dark:border-slate-800 dark:bg-slate-950">
+        <button
+          type="button"
           onClick={handleLogout}
-          sx={{ width: '100%' }}
+          className="flex w-full items-center gap-4 rounded-full bg-white px-4 py-3 text-sm font-semibold text-red-600 shadow-inner transition hover:bg-red-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-300 dark:bg-slate-900 dark:text-red-400 dark:hover:bg-slate-800"
         >
-          <ListItemIcon>
+          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-red-100 text-red-500 dark:bg-red-500/10 dark:text-red-300">
             <LogoutIcon />
-          </ListItemIcon>
-          <ListItemText primary="LOGOUT" />
-        </ListItemButton>
-
-      </List>
-    </>
+          </span>
+          LOGOUT
+        </button>
+      </div>
+    </nav>
   );
 }
 

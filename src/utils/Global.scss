@@ -1,6 +1,11 @@
+/* File: Global.scss - グローバルテーマとTailwind初期化を担うスタイル定義。 */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   margin: 0;
   padding: 0;
   display: block;
 }
-

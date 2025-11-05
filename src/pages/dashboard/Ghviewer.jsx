@@ -1,5 +1,4 @@
 // GitHub user search view embedded in the dashboard router.
-import styles from './Dashboard.module.scss';
 import { useState } from 'react';
 import OctkitManager from "../../utils/OctkitManager";
 import SearchText from "../../components/atoms/SearchText";
@@ -14,7 +13,7 @@ function GhviewerContent() {
 
   return (
     <>
-      <div className={styles.boxmergin} >
+      <div className="mb-6 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
         <SearchText
           placeholder="search user name"
           onsubmit={(user)=>{
