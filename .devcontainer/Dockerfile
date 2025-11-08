@@ -8,12 +8,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
 USER root
 
 RUN apt update -y && \
-    apt install -y curl git sudo zstd make && \
-    \
-    curl -L https://github.com/openai/codex/releases/download/rust-v0.50.0/codex-x86_64-unknown-linux-musl.zst \
-    | zstd -d -o /usr/local/bin/codex && \
-    chmod a+x /usr/local/bin/codex
-
+    apt install -y curl git sudo zstd make
 
 ARG CONTAINER_USERNAME=node
 ARG CONTAINER_USERID=1000
