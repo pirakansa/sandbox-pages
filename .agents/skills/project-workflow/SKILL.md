@@ -40,8 +40,8 @@ type(scope?): description
 Example:
 
 ```text
-- internal/data/data.go: Added error return when YAML parsing fails
-- pkg/req/req.go: Strengthened HTTP timeout configuration
+- src/config/appConfig.ts: Add error handling when JSON parsing fails
+- src/api/request.ts: Strengthen HTTP timeout configuration
 ```
 
 ## PR Policy
