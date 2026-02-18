@@ -19,4 +19,4 @@ Use this skill for environment setup, local execution, and basic project tasks.
 * Lint: `npm run lint`
 * Test: `npm run test`
 * Dev server: `npm run dev`
-* Cleanup build artifacts: `rm -rf ./dist/` (equivalent to `npm run clean`)
+* Cleanup build artifacts: `rm -rf ./dist/`
