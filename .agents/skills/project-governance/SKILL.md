@@ -32,7 +32,7 @@ Use this skill for security handling, documentation updates, dependencies, and r
 
 * Use SemVer.
 * Tag releases with `git tag vX.Y.Z`.
-* Verify release output via `make release`.
+* Verify release output using the project's documented build and test commands.
 * Update `CHANGELOG.md` and release notes.
 
 ## CHANGELOG Policy
