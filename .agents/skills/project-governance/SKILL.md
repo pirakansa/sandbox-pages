@@ -33,15 +33,15 @@ Use this skill for security handling, documentation updates, dependencies, and r
 * Use SemVer.
 * Tag releases with `git tag vX.Y.Z`.
 * Verify release output using the project's documented build and test commands.
-* Update `CHANGELOG.md` and release notes.
+* If the project uses a `CHANGELOG.md`, update it; otherwise ensure the chosen release-notes documentation (for example, GitHub Releases or a docs page) is updated.
 
-## CHANGELOG Policy
+## Changelog / Release Notes Policy
 
-* Follow Keep a Changelog sections: Added / Changed / Fixed / Deprecated / Removed / Security.
+* When maintaining a `CHANGELOG.md`, follow Keep a Changelog sections: Added / Changed / Fixed / Deprecated / Removed / Security.
 * Write in English.
 * Prefer user-impact language; mark breaking changes clearly with migration steps.
 * Add PR/Issue references when possible.
-* Workflow:
-  1. Add entries under `Unreleased` in feature PRs.
-  2. Set version/date in release PR.
-  3. Copy section to release notes after tagging.
+* Workflow (applies to `CHANGELOG.md` or the project’s primary release-notes mechanism):
+  1. Add entries under `Unreleased` (or the equivalent section) in feature PRs.
+  2. Set version/date in the release PR.
+  3. After tagging, copy or move the relevant section into the final release notes (e.g., `CHANGELOG.md`, GitHub Releases, or equivalent).
