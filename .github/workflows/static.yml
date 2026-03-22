@@ -38,20 +38,25 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: "npm"
 
-      - name: Install dependency
-        run: npm ci
+      - name: Install vorbere
+        uses: pirakansa/vorbere@v0
+        with:
+          version: v0.3.1
 
-      - name: Lint
-        run: npm run lint
+      - name: Install dependency
+        run: vorbere run setup
+
+      - name: Check
+        run: vorbere run check
 
       - name: Test
-        run: npm run test
+        run: vorbere run test
 
       - name: Build
-        run: npm run build
+        run: vorbere run build
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
