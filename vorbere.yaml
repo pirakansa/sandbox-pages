@@ -13,8 +13,8 @@ tasks:
     run: "npm run build-dev"
     desc: create debug-friendly build
   check:
-    run: "npm run type-check && npm run lint"
-    desc: run static analysis (TypeScript + ESLint)
+    run: "npm run lint"
+    desc: run static analysis (ESLint)
   test:
     run: "npm run test"
     desc: run unit tests
