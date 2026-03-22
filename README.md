@@ -4,11 +4,10 @@ react + vite 構成の遊び場です。GitHub Flowで運用します。
 
 ## 使い方
 
-- 初回セットアップ: `npm install`
-- ローカル実行: `npm run dev`
-- テスト: `npm run test`
-- フォーマット: `npm run lint`
-- 依存脆弱性チェック: `npm audit`
+- 初回セットアップ: `vorbere run setup`
+- ローカル実行: `vorbere run dev`
+- テスト: `vorbere run test`
+- フォーマット: `vorbere run check`
 
 タスク一覧は `npm run` で確認できます。
 
