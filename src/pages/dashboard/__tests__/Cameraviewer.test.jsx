@@ -31,12 +31,18 @@ describe('Cameraviewer', () => {
 
   const setupNavigator = () => {
     navigatorOverride = Object.create(originalNavigator || {});
-    navigatorOverride.mediaDevices = {
-      getUserMedia: getUserMediaMock,
-    };
-    navigatorOverride.clipboard = {
-      writeText: vi.fn(() => Promise.resolve()),
-    };
+    Object.defineProperty(navigatorOverride, 'mediaDevices', {
+      configurable: true,
+      value: {
+        getUserMedia: getUserMediaMock,
+      },
+    });
+    Object.defineProperty(navigatorOverride, 'clipboard', {
+      configurable: true,
+      value: {
+        writeText: vi.fn(() => Promise.resolve()),
+      },
+    });
 
     Object.defineProperty(globalThis, 'navigator', {
       configurable: true,
