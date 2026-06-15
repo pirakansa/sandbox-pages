@@ -5,6 +5,23 @@ import { VitePWA } from 'vite-plugin-pwa'
 import react from '@vitejs/plugin-react'
 
 const ROOT_DIR = resolve(__dirname, 'src');
+const MANUAL_CHUNK_PATTERNS = [
+  ['jsqr', '/node_modules/jsqr/'],
+  ['forcegraph2d', '/node_modules/react-force-graph-2d/'],
+  ['octkit', '/node_modules/octokit/'],
+];
+
+const resolveManualChunk = (id) => {
+  const normalizedId = id.replaceAll('\\', '/');
+
+  for (const [chunkName, packagePath] of MANUAL_CHUNK_PATTERNS) {
+    if (normalizedId.includes(packagePath)) {
+      return chunkName;
+    }
+  }
+
+  return undefined;
+};
 
 export default defineConfig({
   plugins: [
@@ -65,11 +82,7 @@ export default defineConfig({
         login: resolve(ROOT_DIR, 'login.html'),
       },
       output: {
-        manualChunks: {
-          jsqr: ["jsqr"],
-          forcegraph2d: ["react-force-graph-2d"],
-          octkit: ["octokit"],
-        },
+        manualChunks: resolveManualChunk,
       },
     },
   },
@@ -81,10 +94,5 @@ export default defineConfig({
     pool: 'threads',
     minWorkers: 1,
     maxWorkers: 1,
-    poolOptions: {
-      threads: {
-        singleThread: true,
-      },
-    },
   },
 })
