@@ -24,7 +24,7 @@
     "react-dom": "^19.1.0",
     "react-force-graph-2d": "^1.27.1",
     "react-router-dom": "^7.16.0",
-    "ua-parser-js": "^2.0.3",
+    "ua-parser-js": "^2.0.10",
     "uuid": "^14.0.0"
   },
   "devDependencies": {
