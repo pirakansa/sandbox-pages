@@ -1,16 +1,18 @@
+/** Configure application builds, PWA assets, and the test environment. */
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
 import { visualizer } from "rollup-plugin-visualizer"
 import { VitePWA } from 'vite-plugin-pwa'
 import react from '@vitejs/plugin-react'
 
-const ROOT_DIR = resolve(__dirname, 'src');
+const ROOT_DIR = resolve(import.meta.dirname, 'src');
 const MANUAL_CHUNK_PATTERNS = [
   ['jsqr', '/node_modules/jsqr/'],
   ['forcegraph2d', '/node_modules/react-force-graph-2d/'],
   ['octkit', '/node_modules/octokit/'],
 ];
 
+/** Assign large optional libraries to separate output chunks. */
 const resolveManualChunk = (id) => {
   const normalizedId = id.replaceAll('\\', '/');
 
@@ -65,15 +67,15 @@ export default defineConfig({
       }
     })
   ],
-  envDir: __dirname,
+  envDir: import.meta.dirname,
   define: {
     'import.meta.env.VITE_APP_VERSION': JSON.stringify(process.env.npm_package_version || 'dev'),
     __APP_VERSION__: JSON.stringify(process.env.npm_package_version || 'dev'),
   },
   root: ROOT_DIR,
-  publicDir: resolve(__dirname, 'public'),
+  publicDir: resolve(import.meta.dirname, 'public'),
   build: {
-    outDir: resolve(__dirname, 'dist'),
+    outDir: resolve(import.meta.dirname, 'dist'),
     emptyOutDir: true,
     rollupOptions: {
       input: {
@@ -88,7 +90,7 @@ export default defineConfig({
   },
   test: {
     environment: 'jsdom',
-    setupFiles: resolve(__dirname, 'src/setupTests.js'),
+    setupFiles: resolve(import.meta.dirname, 'src/setupTests.js'),
     globals: true,
     css: true,
     pool: 'threads',
